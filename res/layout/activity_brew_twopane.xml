@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/brew_list"
-        android:name="com.example.brewforia.BrewListFragment"
+        android:name="com.ratworkshop.brewforia.BrewListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
