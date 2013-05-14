@@ -54,7 +54,8 @@ public class BrewDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.brew_detail)).setText(mItem.content);
+            ((TextView) rootView.findViewById(R.id.brew_detail)).setText(mItem.name);
+            ((TextView) rootView.findViewById(R.id.brew_abv)).setText(new Float(mItem.abv).toString());
         }
 
         return rootView;
