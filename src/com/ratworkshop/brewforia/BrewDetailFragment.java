@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ratworkshop.brewforia.R;
 import com.ratworkshop.brewforia.dummy.DummyContent;
+import com.ratworkshop.brewforia.models.Brew;
 
 /**
  * A fragment representing a single Brew detail screen.
@@ -26,7 +27,7 @@ public class BrewDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private Brew mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,7 +56,7 @@ public class BrewDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.brew_detail)).setText(mItem.name);
-            ((TextView) rootView.findViewById(R.id.brew_abv)).setText(new Float(mItem.abv).toString());
+            ((TextView) rootView.findViewById(R.id.brew_abv)).setText(Double.toString(mItem.abv));
         }
 
         return rootView;

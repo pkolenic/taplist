@@ -1,7 +1,6 @@
 package com.ratworkshop.brewforia;
 
-import com.ratworkshop.brewforia.R;
-
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -50,6 +49,13 @@ public class BrewListActivity extends FragmentActivity
                     .findFragmentById(R.id.brew_list))
                     .setActivateOnItemClick(true);
         }
+
+        final ActionBar actionBar = getActionBar();        
+        actionBar.setCustomView(R.layout.activity_header);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
