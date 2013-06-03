@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ratworkshop.brewforia"
+    package="com.ratworkshop.taplist"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,15 +8,20 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/BrewforiaActivtyTheme">
-        <!--  android:theme="@style/AppTheme" -->
+        android:label="@string/app_name">
+
+        <!-- android:theme="@style/AppTheme" -->
         <activity
-            android:name="com.ratworkshop.brewforia.BrewListActivity"
-            android:label="@string/app_name" >
+            android:name="com.ratworkshop.taplist.BrewSplashActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:theme="@style/BrewSplash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,13 +29,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ratworkshop.brewforia.BrewDetailActivity"
+            android:name="com.ratworkshop.taplist.BrewListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/TaplistActivtyTheme" >
+        </activity>
+        <activity
+            android:name="com.ratworkshop.taplist.BrewDetailActivity"
             android:label="@string/title_brew_detail"
-            android:parentActivityName=".BrewListActivity" >
+            android:parentActivityName="com.ratworkshop.taplist.BrewListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BrewListActivity" />
         </activity>
+
+        <service
+            android:name="com.ratworkshop.taplist.service.ImageDownloader"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

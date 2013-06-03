@@ -6,9 +6,10 @@
 <fragment
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/brew_list"
-    android:name="com.ratworkshop.brewforia.BrewListFragment"
+    android:name="com.ratworkshop.taplist.BrewListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    class="com.ratworkshop.taplist.BrewListFragment"
     tools:context=".BrewListActivity"
     tools:layout="@android:layout/list_content" />
 

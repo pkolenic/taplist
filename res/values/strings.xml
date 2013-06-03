@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">brewforia</string>
+    <string name="app_name">Tap List</string>
     <string name="title_brew_detail">Brew Detail</string>
     <string name="beer_market">BEER MARKET</string>
     <string name="tap_list_header">[taplist]</string>
@@ -10,6 +10,6 @@
     <string name="tap_list_header_quart">QT</string>
     <string name="tap_list_header_growler">GROWLER</string>
     <string name="tap_list_image_desc">Brew Glass Type</string>
-    <string name="activty_header_image_desc">Brewforia</string>
-
+    <string name="activty_header_image_desc">Taplist</string>
+    
 </resources>

@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/taplistAPV"
-        android:layout_width="30dp"
+        android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:gravity="center_vertical|left"
