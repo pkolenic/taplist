@@ -1,5 +1,8 @@
 package com.ratworkshop.taplist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
@@ -8,7 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
-import com.ratworkshop.taplist.contentprovider.PubContent;
+import com.ratworkshop.taplist.content.PubContent;
 
 
 /**
@@ -28,7 +31,7 @@ import com.ratworkshop.taplist.contentprovider.PubContent;
  * to listen for item selections.
  */
 public class BrewListActivity extends FragmentActivity implements BrewListFragment.Callbacks {
-
+	
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -65,22 +68,22 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, PubContent.PUB_LIST);
+        List<String> pubs = new ArrayList<String>(PubContent.PUB_MAP.keySet());
+        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, pubs);
         mOnNavigationListener = new OnNavigationListener() {
 
         	  @Override
         	  public boolean onNavigationItemSelected(int position, long itemId) {
-        		// Set the Pub Id on the BrewListFragment and Redraw the List  
-        		pubId = PubContent.PUB_LIST.get(position);
-                ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position));
+        		// Set the Pub Id on the BrewListFragment and Redraw the List
+        		List<String> pubs = new ArrayList<String>(PubContent.PUB_MAP.keySet());
+        		pubId = pubs.get(position);
+                ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(pubs.get(position));
         	    return true;
         	  }
         };
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);	
-        	
-        // TODO: If exposing deep links into your app, handle intents here.
     }
-
+    
     /**
      * Callback method from {@link BrewListFragment.Callbacks}
      * indicating that the item with the given ID was selected.

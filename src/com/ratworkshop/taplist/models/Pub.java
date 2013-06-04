@@ -17,6 +17,7 @@ public class Pub {
 	private static final String DEBUG_TAG = "Pub";
 	
 	private String id;
+	private String name;
 	private String address;
 	private String city;
 	private String state;
@@ -30,13 +31,14 @@ public class Pub {
 	private List<Brew> tap_list;
 	private Map<String, Brew> brew_map = new HashMap<String, Brew>();
 	
-	public Pub(String id) {
-		this(id, "", "", "", "", "", "", "", "#000");
+	public Pub(String name) {
+		this("", name, "", "", "", "", "", "", "", "#000");
 	}
 	
-	public Pub(String id, String address, String city, String state, String zip, String logo_path, String title, String subtitle, String color) {
+	public Pub(String id, String name, String address, String city, String state, String zip, String logo_path, String title, String subtitle, String color) {
 		tap_list = new ArrayList<Brew>();
 		this.id = id;
+		this.name = name;
 		this.address = address;
 		this.city = city;
 		this.zip = zip;
@@ -55,6 +57,14 @@ public class Pub {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getAddress() {
 		return address;
 	}

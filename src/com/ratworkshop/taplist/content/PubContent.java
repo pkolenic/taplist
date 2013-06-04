@@ -1,6 +1,5 @@
-package com.ratworkshop.taplist.contentprovider;
+package com.ratworkshop.taplist.content;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,22 +15,19 @@ import com.ratworkshop.taplist.models.Pub;
  */
 public class PubContent {
 	
-    public static ArrayList<String> PUB_LIST = new ArrayList<String>();    
     public static Map<String, Pub> PUB_MAP = new HashMap<String, Pub>();
     
     public static void parsePubLists(String pubListings, Context context) {
     	if (pubListings == null) {
     		Pub pub = new Pub("No Pubs Available");
-    		PUB_LIST.add(pub.getId());
-    		PUB_MAP.put(pub.getId(), pub);
+    		PUB_MAP.put(pub.getName(), pub);
     		return;
     	}
     	
 		// Create the Pubs and TapLists
-    	Pub meridian = new Pub("Meridian", "101 Overland Rd.", "Meridian", "ID", "83706", "http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg", "Beer Market", "[ taplist]", "#000");
+    	Pub meridian = new Pub("1", "Meridian", "101 Overland Rd.", "Meridian", "ID", "83706", "http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg", "Beer Market", "[ taplist]", "#000");
     	meridian.downloadLogo(context);
-    	PUB_LIST.add(meridian.getId());
-    	PUB_MAP.put(meridian.getId(), meridian);
+    	PUB_MAP.put(meridian.getName(), meridian);
     	
 		// Meridian Tap List
     	meridian.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub));
@@ -45,10 +41,9 @@ public class PubContent {
 		meridian.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner));
     	
     	
-    	Pub eagle = new Pub("Eagle", "101 State St.", "Eagle", "ID", "83703", "http://stuartsoperahouse.org/images/Upcoming-Events-Header.png", "Beer House", "[ brewlist]", "#FFF");
+    	Pub eagle = new Pub("2", "Eagle", "101 State St.", "Eagle", "ID", "83703", "http://stuartsoperahouse.org/images/Upcoming-Events-Header.png", "Beer House", "[ brewlist]", "#FFF");
     	eagle.downloadLogo(context);
-    	PUB_LIST.add(eagle.getId());
-    	PUB_MAP.put(eagle.getId(), eagle);
+    	PUB_MAP.put(eagle.getName(), eagle);
 
 		// Eagle Tap List
 		eagle.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale));

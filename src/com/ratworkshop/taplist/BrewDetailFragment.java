@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ratworkshop.taplist.R;
-import com.ratworkshop.taplist.contentprovider.PubContent;
+import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.models.Brew;
 
 /**

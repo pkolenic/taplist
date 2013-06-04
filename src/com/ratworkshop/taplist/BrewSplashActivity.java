@@ -17,7 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.ratworkshop.taplist.contentprovider.PubContent;
+import com.ratworkshop.taplist.content.PubContent;
 
 public class BrewSplashActivity extends Activity {
 

@@ -44,7 +44,7 @@ public class ImageDownloader extends IntentService {
 			    File imageFile = new File(cacheDir, filename);
 			    FileOutputStream fos = new FileOutputStream(imageFile);   
 				
-				Log.d(DEBUG_TAG, "Saving to:\n" + imageFile.getPath());
+				Log.d(DEBUG_TAG, "Saving to: " + imageFile.getPath());
 				bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
 				fos.flush();
 				fos.close();

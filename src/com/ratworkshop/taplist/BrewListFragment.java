@@ -18,7 +18,7 @@ import android.widget.ListView;
 
 import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.adapters.TaplistAdapter;
-import com.ratworkshop.taplist.contentprovider.PubContent;
+import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.utilities.FlushedInputStream;
 
@@ -87,7 +87,6 @@ public class BrewListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pubId = PubContent.PUB_LIST.get(0);
         mAdapter = new TaplistAdapter(getActivity(), R.layout.taplist_row, new ArrayList<Brew>());
         setListAdapter(mAdapter);
     }
