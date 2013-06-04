@@ -38,8 +38,10 @@ public class BrewDetailActivity extends FragmentActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(BrewDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(BrewDetailFragment.ARG_ITEM_ID));
+            arguments.putString(BrewDetailFragment.ARG_BREW_ID,
+                    getIntent().getStringExtra(BrewDetailFragment.ARG_BREW_ID));
+            arguments.putString(BrewDetailFragment.ARG_PUB_ID, 
+            		getIntent().getStringExtra(BrewDetailFragment.ARG_PUB_ID));
             BrewDetailFragment fragment = new BrewDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

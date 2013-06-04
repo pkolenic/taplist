@@ -53,12 +53,12 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		}
 		
 		Brew brew = taplist.get(position);
-		holder.brewTitle.setText(brew.name);
-		holder.brewAPV.setText(Double.toString(brew.abv) + "%");
-		holder.glassPrice.setText(String.format("$%.2f",brew.glass));
-		holder.quartPrice.setText(String.format("$%.2f",brew.quart));
-		holder.growlerPrice.setText(String.format("$%.2f", brew.growler));
-		holder.imgIcon.setImageResource(brew.icon);
+		holder.brewTitle.setText(brew.getName());
+		holder.brewAPV.setText(Double.toString(brew.getAbv()) + "%");
+		holder.glassPrice.setText(String.format("$%.2f",brew.getGlass()));
+		holder.quartPrice.setText(String.format("$%.2f",brew.getQuart()));
+		holder.growlerPrice.setText(String.format("$%.2f", brew.getGrowler()));
+		holder.imgIcon.setImageResource(brew.getIcon());
 		
 		return row;
 	}

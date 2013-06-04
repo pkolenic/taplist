@@ -99,7 +99,7 @@ public class BrewListFragment extends ListFragment {
     public void onPubSelected(String pubId) {
     	this.pubId = pubId;
     	mAdapter.clear();
-    	List<Brew> taplist = PubContent.TAP_LISTS.get(pubId);
+    	List<Brew> taplist = PubContent.PUB_MAP.get(pubId).getTaplist();
     	if (taplist != null) {
     		mAdapter.addAll(taplist);
     		mAdapter.notifyDataSetChanged();
@@ -114,7 +114,7 @@ public class BrewListFragment extends ListFragment {
     	
 		// Try to use existing File, otherwise show default logo and begin download
 	    String cacheDir = activity.getCacheDir().getPath();
-	    File imageFile = new File(cacheDir, PubContent.PUB_LOGOS.get(pubId));
+	    File imageFile = new File(cacheDir, PubContent.PUB_MAP.get(pubId).getLogo());
 	    try {
 			FileInputStream fis = new FileInputStream(imageFile);
 			Bitmap bmp = BitmapFactory.decodeStream(new FlushedInputStream(fis));
@@ -165,8 +165,8 @@ public class BrewListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        List<Brew> taplist = PubContent.TAP_LISTS.get(pubId);
-        mCallbacks.onItemSelected(taplist.get(position).id);
+        List<Brew> taplist = PubContent.PUB_MAP.get(pubId).getTaplist();
+        mCallbacks.onItemSelected(taplist.get(position).getId());
     }
 
     @Override

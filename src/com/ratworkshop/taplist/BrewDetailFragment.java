@@ -22,7 +22,8 @@ public class BrewDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_BREW_ID = "item_id";
+    public static final String ARG_PUB_ID = "pub_id";
 
     /**
      * The dummy content this fragment is presenting.
@@ -40,11 +41,11 @@ public class BrewDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(ARG_BREW_ID) && getArguments().containsKey(ARG_PUB_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mBrew = PubContent.BREW_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        	mBrew = PubContent.PUB_MAP.get(getArguments().getString(ARG_PUB_ID)).getBrew(getArguments().getString(ARG_BREW_ID));
         }
     }
 
@@ -53,10 +54,9 @@ public class BrewDetailFragment extends Fragment {
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_brew_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
         if (mBrew != null) {
-            ((TextView) rootView.findViewById(R.id.brew_detail)).setText(mBrew.name);
-            ((TextView) rootView.findViewById(R.id.brew_abv)).setText(Double.toString(mBrew.abv));
+            ((TextView) rootView.findViewById(R.id.brew_detail)).setText(mBrew.getName());
+            ((TextView) rootView.findViewById(R.id.brew_abv)).setText(Double.toString(mBrew.getAbv()));
         }
 
         return rootView;

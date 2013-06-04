@@ -1,8 +1,5 @@
 package com.ratworkshop.taplist;
 
-import com.ratworkshop.taplist.R;
-import com.ratworkshop.taplist.contentprovider.PubContent;
-
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
@@ -10,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
+
+import com.ratworkshop.taplist.contentprovider.PubContent;
 
 
 /**
@@ -35,6 +34,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
      * device.
      */
     private boolean mTwoPane;
+    private String pubId;
     private OnNavigationListener mOnNavigationListener;
     private SpinnerAdapter mSpinnerAdapter;
 
@@ -71,6 +71,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         	  @Override
         	  public boolean onNavigationItemSelected(int position, long itemId) {
         		// Set the Pub Id on the BrewListFragment and Redraw the List  
+        		pubId = PubContent.PUB_LIST.get(position);
                 ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position));
         	    return true;
         	  }
@@ -91,7 +92,8 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(BrewDetailFragment.ARG_ITEM_ID, id);
+            arguments.putString(BrewDetailFragment.ARG_BREW_ID, id);
+            arguments.putString(BrewDetailFragment.ARG_PUB_ID, pubId);
             BrewDetailFragment fragment = new BrewDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -102,7 +104,8 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, BrewDetailActivity.class);
-            detailIntent.putExtra(BrewDetailFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra(BrewDetailFragment.ARG_BREW_ID, id);
+            detailIntent.putExtra(BrewDetailFragment.ARG_PUB_ID, pubId);
             startActivity(detailIntent);
         }
     }
