@@ -32,7 +32,10 @@ public class PubContent {
 				"ID", "83706",
 				"http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg",
 				"The Beer Garden", "Custom Beer", "#000000", "#ffe8db",
-				"#ffe8db", "#000000", "#e9dcc8");
+				"#ffe8db", "#000000", "#e9dcc8",
+				 "MONOSPACE", "BOLD", false,
+				 "MONOSPACE", "BOLD", false,
+				 "DEFAULT", "NORMAL", false);
     	pub.downloadLogo(context);
     	PUB_MAP.put(pub.getName(), pub);
     	PUB_LIST.add(pub.getName());
@@ -51,7 +54,10 @@ public class PubContent {
     	
 		pub = new Pub("2", "Brewforia - Eagle", "101 State St.", "Eagle",
 				"ID", "83703", "", "Beer Market", "[taplist]", "#000000",
-				"#ffe8db", "#ffe8db", "#000000", "#e9dcc8");
+				"#ffe8db", "#ffe8db", "#000000", "#e9dcc8",
+				 "MONOSPACE", "BOLD", false,
+				 "MONOSPACE", "BOLD", false,
+				 "DEFAULT", "NORMAL", false);
     	pub.downloadLogo(context);
     	PUB_MAP.put(pub.getName(), pub);
     	PUB_LIST.add(pub.getName());
@@ -70,7 +76,10 @@ public class PubContent {
 		
 		pub = new Pub("3", "Brewforia - Meridian", "101 Overland Rd.", "Meridian",
 				"ID", "83713", "", "Beer Market", "[taplist]", "#FF0000",
-				"#FFFFFF", "#000000", "#00FF00", "#FF00FF");
+				"#FFFFFF", "#000000", "#00FF00", "#FF00FF",
+				 "SAN_SERIF", "ITALIC", false,
+				 "DEFAULT_BOLD", "NORMAL", false,
+				 "MONOSPACE", "BOLD_ITALIC", false);
     	pub.downloadLogo(context);
     	PUB_MAP.put(pub.getName(), pub);
     	PUB_LIST.add(pub.getName());

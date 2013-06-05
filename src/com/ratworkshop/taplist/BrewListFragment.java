@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -19,12 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.adapters.TaplistAdapter;
 import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.utilities.FlushedInputStream;
+import com.ratworkshop.taplist.utilities.TaplistStyle;
+import com.ratworkshop.taplist.utilities.TaplistTypeface;
 
 /**
  * A list fragment representing a list of Brews. This fragment
@@ -169,11 +171,78 @@ public class BrewListFragment extends ListFragment {
 		
 		// Set Text Colors
 		title.setTextColor(Color.parseColor(pub.getTitle_color()));
+		setTextStyle(title, pub.getTitle_typeface(), pub.getTitle_style(), pub.is_title_custom_font());
+		
 		subtitle.setTextColor(Color.parseColor(pub.getSubtitle_color()));
+		setTextStyle(subtitle, pub.getSubtitle_typeface(), pub.getSubtitle_style(), pub.is_subtitle_custom_font());
+		
 		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		setTextStyle(abvLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+		
 		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		setTextStyle(glassLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+		
 		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		setTextStyle(quartLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+		
 		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		setTextStyle(growlerLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+    }
+    
+    /**
+     * Sets the Font Styling for a TextView
+     * @param view - TextView to set font for
+     * @param typeface - Name of default TypeFace, or path to Custom TypeFace
+     * @param style - Name of Style to apply to TypeFace
+     * @param size - Size in SP to set the Font
+     * @param isCustomFont - flag to mark if using a custom font
+     */
+    private void setTextStyle(TextView view, String typeface, String style, boolean isCustomFont) {
+    	// @TODO - Move this into a custom subclass of TextView
+    	Typeface tf;
+    	if (isCustomFont) {
+    		final Activity activity = getActivity();  
+    		tf = Typeface.createFromFile(String.format("%s/fonts/%s", activity.getCacheDir(), typeface));
+    	} else {
+    		TaplistTypeface ttf = TaplistTypeface.valueOf(typeface);
+    		switch(ttf) {
+    		default:
+    		case DEFAULT :
+    			tf = Typeface.DEFAULT;
+    			break;
+    		case DEFAULT_BOLD:
+    			tf = Typeface.DEFAULT_BOLD;
+    			break;
+    		case MONOSPACE:
+    			tf = Typeface.MONOSPACE;
+    			break;
+    		case SAN_SERIF:
+    			tf = Typeface.SANS_SERIF;
+    			break;
+    		case SERIF:
+    			tf = Typeface.SERIF;
+    			break;
+    		}
+    	}
+    	int s = Typeface.NORMAL;
+    	TaplistStyle ts = TaplistStyle.valueOf(style);
+    	switch(ts) {
+    		default:
+    		case NORMAL:
+    			s = Typeface.NORMAL;
+    			break;
+    		case BOLD:
+    			s = Typeface.BOLD;
+    			break;
+    		case BOLD_ITALIC:
+    			s = Typeface.BOLD_ITALIC;
+    			break;
+    		case ITALIC:
+    			s = Typeface.ITALIC;
+    			break;
+    	}
+    	
+    	view.setTypeface(tf, s);
     }
     
     @Override
