@@ -25,7 +25,7 @@ public class PubContent {
     	}
     	
 		// Create the Pubs and TapLists
-    	Pub meridian = new Pub("1", "Meridian", "101 Overland Rd.", "Meridian", "ID", "83706", "http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg", "Beer Market", "[ taplist]", "#000");
+    	Pub meridian = new Pub("1", "Meridian", "101 Overland Rd.", "Meridian", "ID", "83706", "http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg", "Beer Market", "[taplist]", "#000");
     	meridian.downloadLogo(context);
     	PUB_MAP.put(meridian.getName(), meridian);
     	
@@ -41,7 +41,7 @@ public class PubContent {
 		meridian.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner));
     	
     	
-    	Pub eagle = new Pub("2", "Eagle", "101 State St.", "Eagle", "ID", "83703", "http://stuartsoperahouse.org/images/Upcoming-Events-Header.png", "Beer House", "[ brewlist]", "#FFF");
+    	Pub eagle = new Pub("2", "Eagle", "101 State St.", "Eagle", "ID", "83703", "http://stuartsoperahouse.org/images/Upcoming-Events-Header.png", "Beer House", "[brewlist]", "#FFF");
     	eagle.downloadLogo(context);
     	PUB_MAP.put(eagle.getName(), eagle);
 

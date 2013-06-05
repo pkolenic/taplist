@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.adapters.TaplistAdapter;
@@ -76,6 +77,8 @@ public class BrewListFragment extends ListFragment {
     private TaplistAdapter mAdapter;
     private String pubId;
 	private ImageView logo;
+	private TextView title;
+	private TextView subtitle;
 	    
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -105,10 +108,12 @@ public class BrewListFragment extends ListFragment {
     	}		
     	
     	final Activity activity = getActivity();    	
-    	// Lazily Set the logo
+    	// Lazily Instantiate UI Components
     	if (logo == null) {
         	final View header = activity.getActionBar().getCustomView();
     		logo = (ImageView) header.findViewById(R.id.actionBarLogo);
+    		title = (TextView) activity.findViewById(R.id.taplistTitle);
+    		subtitle = (TextView) activity.findViewById(R.id.taplistSubTitle);
     	}
     	
 		// Try to use existing File, otherwise show default logo and begin download
@@ -124,6 +129,14 @@ public class BrewListFragment extends ListFragment {
 			
 			// @TODO Begin File Download
 		};  
+		
+		if (title != null) {
+			title.setText(PubContent.PUB_MAP.get(pubId).getTitle());
+		}
+		
+		if (subtitle != null) {
+			subtitle.setText(PubContent.PUB_MAP.get(pubId).getSubtitle());
+		}
     }
     
     @Override

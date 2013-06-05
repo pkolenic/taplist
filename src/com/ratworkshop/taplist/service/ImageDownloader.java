@@ -37,17 +37,19 @@ public class ImageDownloader extends IntentService {
         	InputStream is;
 			try {
 				String filename = bundle.getString(IMAGE_NAME);
-				is = new java.net.URL(bundle.getString(IMAGE_URL)).openStream();
-				Bitmap bmp = BitmapFactory.decodeStream(new FlushedInputStream(is));
-				
 			    String cacheDir = getCacheDir().getPath();
 			    File imageFile = new File(cacheDir, filename);
-			    FileOutputStream fos = new FileOutputStream(imageFile);   
-				
-				Log.d(DEBUG_TAG, "Saving to: " + imageFile.getPath());
-				bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-				fos.flush();
-				fos.close();
+			    if (!imageFile.exists()) {
+			    	is = new java.net.URL(bundle.getString(IMAGE_URL)).openStream();
+			    	Bitmap bmp = BitmapFactory.decodeStream(new FlushedInputStream(is));
+			    	
+			    	Log.d(DEBUG_TAG, "Saving to: " + imageFile.getPath());
+			    	FileOutputStream fos = new FileOutputStream(imageFile);   
+			    	bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			      	
+			    	fos.flush();
+			    	fos.close();
+			    }
 			} catch (MalformedURLException e) {
 				Log.d(DEBUG_TAG, "Malformed URL \n" + e.getLocalizedMessage());
 				e.printStackTrace();

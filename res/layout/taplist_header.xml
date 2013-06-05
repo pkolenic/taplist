@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/taplistBeerMarket"
+        android:id="@+id/taplistTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
@@ -16,7 +16,7 @@
         android:typeface="monospace" />
     
     <TextView
-        android:id="@+id/taplistHeader"
+        android:id="@+id/taplistSubTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
