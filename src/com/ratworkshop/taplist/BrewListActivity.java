@@ -1,8 +1,5 @@
 package com.ratworkshop.taplist;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
@@ -62,22 +59,20 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 
         final ActionBar actionBar = getActionBar();        
         actionBar.setCustomView(R.layout.activity_header);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        List<String> pubs = new ArrayList<String>(PubContent.PUB_MAP.keySet());
-        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, pubs);
+        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, PubContent.PUB_LIST);
         mOnNavigationListener = new OnNavigationListener() {
 
         	  @Override
         	  public boolean onNavigationItemSelected(int position, long itemId) {
         		// Set the Pub Id on the BrewListFragment and Redraw the List
-        		List<String> pubs = new ArrayList<String>(PubContent.PUB_MAP.keySet());
-        		pubId = pubs.get(position);
-                ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(pubs.get(position));
+        		pubId = PubContent.PUB_LIST.get(position);
+                ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position));
         	    return true;
         	  }
         };

@@ -9,11 +9,13 @@ import java.util.List;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.adapters.TaplistAdapter;
 import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.models.Brew;
+import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.utilities.FlushedInputStream;
 
 /**
@@ -76,9 +79,15 @@ public class BrewListFragment extends ListFragment {
     private static final String DEBUG_TAG = "BrewListFragment";
     private TaplistAdapter mAdapter;
     private String pubId;
-	private ImageView logo;
+	private ImageView pub_logo;
 	private TextView title;
 	private TextView subtitle;
+	private LinearLayout header;
+	private LinearLayout subheader;
+	private TextView abvLabel;
+	private TextView glassLabel;
+	private TextView quartLabel;
+	private TextView growlerLabel;
 	    
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -100,8 +109,9 @@ public class BrewListFragment extends ListFragment {
      */
     public void onPubSelected(String pubId) {
     	this.pubId = pubId;
+    	final Pub pub = PubContent.PUB_MAP.get(pubId);
     	mAdapter.clear();
-    	List<Brew> taplist = PubContent.PUB_MAP.get(pubId).getTaplist();
+    	List<Brew> taplist = pub.getTaplist();
     	if (taplist != null) {
     		mAdapter.addAll(taplist);
     		mAdapter.notifyDataSetChanged();
@@ -109,34 +119,61 @@ public class BrewListFragment extends ListFragment {
     	
     	final Activity activity = getActivity();    	
     	// Lazily Instantiate UI Components
-    	if (logo == null) {
-        	final View header = activity.getActionBar().getCustomView();
-    		logo = (ImageView) header.findViewById(R.id.actionBarLogo);
-    		title = (TextView) activity.findViewById(R.id.taplistTitle);
-    		subtitle = (TextView) activity.findViewById(R.id.taplistSubTitle);
+    	if (header == null) {
+    		header = (LinearLayout) activity.findViewById(R.id.taplistHeader);
+    		pub_logo = (ImageView) header.findViewById(R.id.pubLogo);
+    		title = (TextView) header.findViewById(R.id.taplistTitle);
+    		subtitle = (TextView) header.findViewById(R.id.taplistSubTitle);
+    		subheader = (LinearLayout) header.findViewById(R.id.taplistSubheader);
+    		abvLabel = (TextView) subheader.findViewById(R.id.taplistHeaderABV);
+    		glassLabel = (TextView) subheader.findViewById(R.id.taplistHeaderGlass);
+    		quartLabel = (TextView) subheader.findViewById(R.id.taplistHeaderQuart);
+    		growlerLabel = (TextView) subheader.findViewById(R.id.taplistHeaderGrowler);
     	}
     	
-		// Try to use existing File, otherwise show default logo and begin download
-	    String cacheDir = activity.getCacheDir().getPath();
-	    File imageFile = new File(cacheDir, PubContent.PUB_MAP.get(pubId).getLogo());
-	    try {
-			FileInputStream fis = new FileInputStream(imageFile);
-			Bitmap bmp = BitmapFactory.decodeStream(new FlushedInputStream(fis));
-			logo.setImageBitmap(bmp);
-		} catch (FileNotFoundException e) {
-			Log.d(DEBUG_TAG, "Unable to use Image File: " + e.getLocalizedMessage());
-			logo.setImageResource(R.drawable.header);
+		// If Custom Logo set show it, otherwise show the Title and SubTitle		
+		if (pub.getLogo() != null) {
+		    String cacheDir = activity.getCacheDir().getPath();
+		    File imageFile = new File(cacheDir, pub.getLogo());
+		    try {
+				FileInputStream fis = new FileInputStream(imageFile);
+				Bitmap bmp = BitmapFactory.decodeStream(new FlushedInputStream(fis));
+				pub_logo.setImageBitmap(bmp);
+			} catch (FileNotFoundException e) {
+				Log.d(DEBUG_TAG, "Unable to use Image File: " + e.getLocalizedMessage());
+				pub_logo.setVisibility(View.GONE);
+
+				title.setText(pub.getTitle());
+				title.setVisibility(View.VISIBLE);
+
+				subtitle.setText(pub.getSubtitle());
+				subtitle.setVisibility(View.VISIBLE);
+			};  
 			
-			// @TODO Begin File Download
-		};  
-		
-		if (title != null) {
-			title.setText(PubContent.PUB_MAP.get(pubId).getTitle());
+			pub_logo.setVisibility(View.VISIBLE);
+			title.setVisibility(View.GONE);
+			subtitle.setVisibility(View.GONE);
+		} else {
+			pub_logo.setVisibility(View.GONE);
+
+			title.setText(pub.getTitle());
+			title.setVisibility(View.VISIBLE);
+
+			subtitle.setText(pub.getSubtitle());
+			subtitle.setVisibility(View.VISIBLE);
 		}
 		
-		if (subtitle != null) {
-			subtitle.setText(PubContent.PUB_MAP.get(pubId).getSubtitle());
-		}
+		// Set Background Colors
+		header.setBackgroundColor(Color.parseColor(pub.getHeader_color()));
+		subheader.setBackgroundColor(Color.parseColor(pub.getSubheader_color()));
+		
+		// Set Text Colors
+		title.setTextColor(Color.parseColor(pub.getTitle_color()));
+		subtitle.setTextColor(Color.parseColor(pub.getSubtitle_color()));
+		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
     }
     
     @Override

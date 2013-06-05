@@ -1,9 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/taplistHeader"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#000000"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/pubLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:longClickable="false"
+        android:contentDescription="@string/activty_header_image_desc"
+        android:src="@drawable/header">
+    </ImageView>
+    
     <TextView
         android:id="@+id/taplistTitle"
         android:layout_width="fill_parent"
@@ -13,7 +25,8 @@
         android:textColor="@color/Header"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:typeface="monospace" />
+        android:typeface="monospace" 
+        android:visibility="gone"/>
     
     <TextView
         android:id="@+id/taplistSubTitle"
@@ -24,12 +37,15 @@
         android:textColor="@color/Header"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:typeface="monospace" />
+        android:typeface="monospace" 
+        android:visibility="gone"/>
 
     <LinearLayout
+        android:id="@+id/taplistSubheader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:background="#000000">
 
         <TextView
             android:id="@+id/taplistHeaderABV"

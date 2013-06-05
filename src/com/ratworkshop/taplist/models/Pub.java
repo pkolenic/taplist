@@ -27,15 +27,23 @@ public class Pub {
 	private String title;
 	private String subtitle;
 	private String header_color;
+	private String title_color;
+	private String subtitle_color;
+	private String subheader_color;
+	private String subheader_text_color;
 	
 	private List<Brew> tap_list;
 	private Map<String, Brew> brew_map = new HashMap<String, Brew>();
 	
 	public Pub(String name) {
-		this("", name, "", "", "", "", "", "", "", "#000");
+		this("", name, "", "", "", "", "", "", "", "#000000", "#ffe8db", "#ffe8db", "#000000", "e9dcc8");
 	}
 	
-	public Pub(String id, String name, String address, String city, String state, String zip, String logo_path, String title, String subtitle, String color) {
+	public Pub(String id, String name, String address, String city,
+			String state, String zip, String logo_path, String title,
+			String subtitle, 
+			String header_color, String title_color, String subtitle_color,
+			String subheader_color, String subheader_text_color) {
 		tap_list = new ArrayList<Brew>();
 		this.id = id;
 		this.name = name;
@@ -46,7 +54,11 @@ public class Pub {
 		this.setLogo(logo_path);
 		this.title = title;
 		this.subtitle = subtitle;
-		this.header_color = color;
+		this.header_color = header_color;
+		this.title_color = title_color;
+		this.subtitle_color = subtitle_color;
+		this.subheader_color = subheader_color;
+		this.subheader_text_color = subheader_text_color;
 	}
 
 	public String getId() {
@@ -121,19 +133,19 @@ public class Pub {
 					ext.equals("gif") ||
 					ext.equals("bmp")) {
 					
-					this.logo = filename;	
+					logo = filename;	
 				} else {
 					Log.d(DEBUG_TAG, filename + " is not a valid image file, wrong file type");	
-					this.logo = null;
+					logo = null;
 				}
 			} else {
 		    	Log.d(DEBUG_TAG, filename + " is not a valid image file, too many parts");
-		    	this.logo = null;
+		    	logo = null;
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 	    	Log.d(DEBUG_TAG, path + " is malformed");
-	    	this.logo = null;
+	    	logo = null;
 		}
 	}
 
@@ -165,6 +177,38 @@ public class Pub {
 		this.header_color = header_color;
 	}
 	
+	public String getTitle_color() {
+		return title_color;
+	}
+
+	public void setTitle_color(String title_color) {
+		this.title_color = title_color;
+	}
+
+	public String getSubtitle_color() {
+		return subtitle_color;
+	}
+
+	public void setSubtitle_color(String subtitle_color) {
+		this.subtitle_color = subtitle_color;
+	}
+	
+	public String getSubheader_color() {
+		return subheader_color;
+	}
+
+	public void setSubheader_color(String subheader_color) {
+		this.subheader_color = subheader_color;
+	}
+
+	public String getSubheader_text_color() {
+		return subheader_text_color;
+	}
+
+	public void setSubheader_text_color(String subheader_text_color) {
+		this.subheader_text_color = subheader_text_color;
+	}
+
 	public List<Brew> getTaplist() {
 		return tap_list;
 	}

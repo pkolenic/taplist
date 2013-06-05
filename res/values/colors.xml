@@ -3,6 +3,6 @@
 
     <color name="Header">#ffe8db</color>
     <color name="SubHeader">#e9dcc8</color>
-    <color name="Black">#000</color>
+    <color name="Black">#000000</color>
 
 </resources>
