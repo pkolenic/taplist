@@ -5,9 +5,8 @@ import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.widget.ArrayAdapter;
-import android.widget.SpinnerAdapter;
 
+import com.ratworkshop.taplist.adapters.SelectionSpinnerAdapter;
 import com.ratworkshop.taplist.content.PubContent;
 
 
@@ -36,7 +35,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
     private boolean mTwoPane;
     private String pubId;
     private OnNavigationListener mOnNavigationListener;
-    private SpinnerAdapter mSpinnerAdapter;
+    private SelectionSpinnerAdapter mSpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,9 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, PubContent.PUB_LIST);
+        mSpinnerAdapter = new SelectionSpinnerAdapter(this, R.layout.pub_selection_label, PubContent.PUB_LIST);
+        mSpinnerAdapter.setSelectionStringId(R.string.pub_selection);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.pub_spinner_row);
         mOnNavigationListener = new OnNavigationListener() {
 
         	  @Override

@@ -11,5 +11,6 @@
     <string name="tap_list_header_growler">GROWLER</string>
     <string name="tap_list_image_desc">Brew Glass Type</string>
     <string name="activty_header_image_desc">Taplist</string>
+    <string name="pub_selection">Select a Pub</string>
     
 </resources>
