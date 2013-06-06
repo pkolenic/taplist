@@ -117,6 +117,8 @@ public class BrewListFragment extends ListFragment {
     	if (taplist != null) {
     		mAdapter.addAll(taplist);
     		mAdapter.notifyDataSetChanged();
+    		
+    		// Set the Styling for the Current TapList
     	}		
     	
     	final Activity activity = getActivity();    	

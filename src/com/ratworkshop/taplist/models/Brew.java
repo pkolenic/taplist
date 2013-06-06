@@ -1,6 +1,10 @@
 package com.ratworkshop.taplist.models;
-
 public class Brew {
+	
+	public enum BrewType {
+		IPA, PORTER, STOUT, PILSNER, CIDAR, ALE, AMBER, WHEAT
+	}
+	
 	private String id;
 	private String name;
 	private String description;
@@ -9,9 +13,10 @@ public class Brew {
 	private double quart;
 	private double growler;
 	private boolean isFeatured;
+	private BrewType brewtype;
 	private int icon;
 
-	public Brew(String id, String name, String description, double d, double e, double f, double g, boolean isFeatured, int icon) {
+	public Brew(String id, String name, String description, double d, double e, double f, double g, boolean isFeatured, int icon, String type) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -21,6 +26,7 @@ public class Brew {
 		this.growler = g;
 		this.isFeatured = isFeatured;
 		this.icon = icon;
+		setBrewtype(type);
 	}
 
 	public String getId() {
@@ -93,6 +99,14 @@ public class Brew {
 
 	public void setIcon(int icon) {
 		this.icon = icon;
+	}
+
+	public BrewType getBrewtype() {
+		return brewtype;
+	}
+
+	public void setBrewtype(String brewtype) {
+		this.brewtype = BrewType.valueOf(brewtype);
 	}
 
 	@Override
