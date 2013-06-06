@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -25,8 +24,6 @@ import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.utilities.FlushedInputStream;
-import com.ratworkshop.taplist.utilities.TaplistStyle;
-import com.ratworkshop.taplist.utilities.TaplistTypeface;
 
 /**
  * A list fragment representing a list of Brews. This fragment
@@ -115,10 +112,20 @@ public class BrewListFragment extends ListFragment {
     	mAdapter.clear();
     	List<Brew> taplist = pub.getTaplist();
     	if (taplist != null) {
+    		// Set the Styling for the Current TapList
+    		mAdapter.setBackgroundColor(pub.getTaplist_background_color());
+    		mAdapter.setFeaturedColor(pub.getFeatured_brew_color());
+    		mAdapter.setFeaturedNameColor(pub.getFeatured_brew_name_color());
+    		mAdapter.setListColor(pub.getTaplist_color());
+    		mAdapter.setListNameColor(pub.getTaplist_name_color());
+    		mAdapter.setFeaturedFontFace(pub.getFeatured_brew_typeface());
+    		mAdapter.setFeaturedNameFontFace(pub.getFeatured_brew_name_typeface());
+    		mAdapter.setListFontFace(pub.getTaplist_typeface());
+    		mAdapter.setListNameFontFace(pub.getTaplist_name_typeface());
+    		
+    		// Add tap list
     		mAdapter.addAll(taplist);
     		mAdapter.notifyDataSetChanged();
-    		
-    		// Set the Styling for the Current TapList
     	}		
     	
     	final Activity activity = getActivity();    	
@@ -173,78 +180,22 @@ public class BrewListFragment extends ListFragment {
 		
 		// Set Text Colors
 		title.setTextColor(Color.parseColor(pub.getTitle_color()));
-		setTextStyle(title, pub.getTitle_typeface(), pub.getTitle_style(), pub.is_title_custom_font());
+		title.setTypeface(pub.getTitle_typeface());
 		
 		subtitle.setTextColor(Color.parseColor(pub.getSubtitle_color()));
-		setTextStyle(subtitle, pub.getSubtitle_typeface(), pub.getSubtitle_style(), pub.is_subtitle_custom_font());
+		subtitle.setTypeface(pub.getSubtitle_typeface());
 		
 		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		setTextStyle(abvLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+		abvLabel.setTypeface(pub.getSubheader_typeface());
 		
 		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		setTextStyle(glassLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+		glassLabel.setTypeface(pub.getSubheader_typeface());
 		
 		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		setTextStyle(quartLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
+		quartLabel.setTypeface(pub.getSubheader_typeface());
 		
 		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		setTextStyle(growlerLabel, pub.getSubheader_typeface(), pub.getSubheader_style(), pub.is_subheader_custom_font());
-    }
-    
-    /**
-     * Sets the Font Styling for a TextView
-     * @param view - TextView to set font for
-     * @param typeface - Name of default TypeFace, or path to Custom TypeFace
-     * @param style - Name of Style to apply to TypeFace
-     * @param size - Size in SP to set the Font
-     * @param isCustomFont - flag to mark if using a custom font
-     */
-    private void setTextStyle(TextView view, String typeface, String style, boolean isCustomFont) {
-    	// @TODO - Move this into a custom subclass of TextView
-    	Typeface tf;
-    	if (isCustomFont) {
-    		final Activity activity = getActivity();  
-    		tf = Typeface.createFromFile(String.format("%s/fonts/%s", activity.getCacheDir(), typeface));
-    	} else {
-    		TaplistTypeface ttf = TaplistTypeface.valueOf(typeface);
-    		switch(ttf) {
-    		default:
-    		case DEFAULT :
-    			tf = Typeface.DEFAULT;
-    			break;
-    		case DEFAULT_BOLD:
-    			tf = Typeface.DEFAULT_BOLD;
-    			break;
-    		case MONOSPACE:
-    			tf = Typeface.MONOSPACE;
-    			break;
-    		case SAN_SERIF:
-    			tf = Typeface.SANS_SERIF;
-    			break;
-    		case SERIF:
-    			tf = Typeface.SERIF;
-    			break;
-    		}
-    	}
-    	int s = Typeface.NORMAL;
-    	TaplistStyle ts = TaplistStyle.valueOf(style);
-    	switch(ts) {
-    		default:
-    		case NORMAL:
-    			s = Typeface.NORMAL;
-    			break;
-    		case BOLD:
-    			s = Typeface.BOLD;
-    			break;
-    		case BOLD_ITALIC:
-    			s = Typeface.BOLD_ITALIC;
-    			break;
-    		case ITALIC:
-    			s = Typeface.ITALIC;
-    			break;
-    	}
-    	
-    	view.setTypeface(tf, s);
+		growlerLabel.setTypeface(pub.getSubheader_typeface());
     }
     
     @Override

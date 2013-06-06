@@ -10,6 +10,7 @@ import android.content.Context;
 import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
+import com.ratworkshop.taplist.utilities.TaplistTypeface;
 
 /**
  * Process the Pub JSON Data fetched from the Server
@@ -33,31 +34,41 @@ public class PubContent {
 				"http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg",
 				"The Beer Garden", "Custom Beer", "#000000", "#ffe8db",
 				"#ffe8db", "#000000", "#e9dcc8",
-				 "MONOSPACE", "BOLD", false,
-				 "MONOSPACE", "BOLD", false,
-				 "DEFAULT", "NORMAL", false);
+				TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
+				TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
+				TaplistTypeface.create("DEFAULT", "NORMAL", false, context),
+				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
+				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
+				 "#000000");
     	pub.downloadLogo(context);
     	PUB_MAP.put(pub.getName(), pub);
     	PUB_LIST.add(pub.getName());
     	
 		// Meridian Tap List
     	pub.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
-    	pub.addBrew(new Brew("12", "Crooked Fence Pineapple IPA", "", 6.8, 3.49, 6.99, 13.99, true, R.drawable.belgian_ale, "IPA"));
+    	pub.addBrew(new Brew("12", "Crooked Fence Pineapple IPA", "", 6.8, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
     	pub.addBrew(new Brew("13", "Grand Teton Lost Continent Double IPA", "", 8.0, 3.69, 8.49, 16.99, false, R.drawable.belgian_ale, "IPA"));
     	pub.addBrew(new Brew("14", "Hoegaarden Belgian Wit", "", 4.9, 3.49, 6.99, 13.99, true, R.drawable.wheat_beer, "WHEAT"));
     	pub.addBrew(new Brew("15", "New Belgium/Red Rock Paardebloem Ale", "", 9.0, 3.99, 9.29, 18.49, false, R.drawable.craft_pub, "ALE"));
-		pub.addBrew(new Brew("16", "Salmon River Buzz Buzz Coffer Porter", "", 5.6, 3.69, 7.49, 14.99, true, R.drawable.porter_stout, "PORTER"));
+		pub.addBrew(new Brew("16", "Salmon River Buzz Buzz Coffer Porter", "", 5.6, 3.69, 7.49, 14.99, false, R.drawable.porter_stout, "PORTER"));
 		pub.addBrew(new Brew("17", "North Coast Class of '88 Collaboration Barleywine", "", 10.0, 6.99, 22.39, 44.69, false, R.drawable.classic_pilsner, "PILSNER"));
-		pub.addBrew(new Brew("18", "Payette Outlaw IPA", "", 6.2, 3.49, 6.99, 14.99, true, R.drawable.belgian_ale, "IPA"));
+		pub.addBrew(new Brew("18", "Payette Outlaw IPA", "", 6.2, 3.49, 6.99, 14.99, false, R.drawable.belgian_ale, "IPA"));
 		pub.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner, "PILSNER"));
     	
     	
 		pub = new Pub("2", "Brewforia - Eagle", "101 State St.", "Eagle",
 				"ID", "83703", "", "Beer Market", "[taplist]", "#000000",
 				"#ffe8db", "#ffe8db", "#000000", "#e9dcc8",
-				 "MONOSPACE", "BOLD", false,
-				 "MONOSPACE", "BOLD", false,
-				 "DEFAULT", "NORMAL", false);
+				TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
+				TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
+				TaplistTypeface.create("DEFAULT", "NORMAL", false, context),
+				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
+				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
+				 "#000000");
     	pub.downloadLogo(context);
     	PUB_MAP.put(pub.getName(), pub);
     	PUB_LIST.add(pub.getName());
@@ -77,14 +88,20 @@ public class PubContent {
 		pub = new Pub("3", "Brewforia - Meridian", "101 Overland Rd.", "Meridian",
 				"ID", "83713", "", "Beer Market", "[taplist]", "#FF0000",
 				"#FFFFFF", "#000000", "#00FF00", "#FF00FF",
-				 "SAN_SERIF", "ITALIC", false,
-				 "DEFAULT_BOLD", "NORMAL", false,
-				 "MONOSPACE", "BOLD_ITALIC", false);
+				TaplistTypeface.create("SAN_SERIF", "ITALIC", false, context),
+				TaplistTypeface.create("DEFAULT_BOLD", "NORMAL", false, context),
+				TaplistTypeface.create("MONOSPACE", "BOLD_ITALIC", false, context),
+				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
+				 "#99e521", TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context),
+				 "#99e521", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
+				 "#360707");
     	pub.downloadLogo(context);
     	PUB_MAP.put(pub.getName(), pub);
     	PUB_LIST.add(pub.getName());
 
 		// Eagle Tap List
 		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
+		pub.addBrew(new Brew("2", "Snake River Packed Porter", "", 6.6, 3.69, 7.39, 14.79, true, R.drawable.porter_stout, "PORTER"));
     }
 }
