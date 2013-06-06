@@ -2,9 +2,11 @@ package com.ratworkshop.taplist.utilities;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 
 public class TaplistTypeface {
-
+    private static final String DEBUG_TAG = "TypelistTypeface";
+    
 	public enum Taplist_Typeface {
 		DEFAULT, DEFAULT_BOLD, MONOSPACE, SAN_SERIF, SERIF
 	}
@@ -13,38 +15,34 @@ public class TaplistTypeface {
 		BOLD, BOLD_ITALIC, ITALIC, NORMAL
 	}
 	
-	public static Typeface create(String font, String style, boolean isCustomFont, Context context) {
+	private static Typeface create(String font, String style) {
+		Taplist_Typeface ttf;
+		try {
+			ttf = Taplist_Typeface.valueOf(font);
+		} catch (IllegalArgumentException e) {
+			ttf = Taplist_Typeface.DEFAULT;
+		}
+		
 		Typeface typeface;
-    	if (isCustomFont) {
-    		typeface = Typeface.createFromFile(String.format("%s/fonts/%s", context.getCacheDir(), font));
-    	} else {
-    		Taplist_Typeface ttf;
-    		try {
-    			ttf = Taplist_Typeface.valueOf(font);
-    		} catch (IllegalArgumentException e) {
-    			ttf = Taplist_Typeface.DEFAULT;
-    		}
-    		
-    		switch(ttf) {
-    		default:
-    		case DEFAULT :
-    			typeface = Typeface.DEFAULT;
-    			break;
-    		case DEFAULT_BOLD:
-    			typeface = Typeface.DEFAULT_BOLD;
-    			break;
-    		case MONOSPACE:
-    			typeface = Typeface.MONOSPACE;
-    			break;
-    		case SAN_SERIF:
-    			typeface = Typeface.SANS_SERIF;
-    			break;
-    		case SERIF:
-    			typeface = Typeface.SERIF;
-    			break;
-    		}
-    	}
-    	
+		switch(ttf) {
+		default:
+		case DEFAULT :
+			typeface = Typeface.DEFAULT;
+			break;
+		case DEFAULT_BOLD:
+			typeface = Typeface.DEFAULT_BOLD;
+			break;
+		case MONOSPACE:
+			typeface = Typeface.MONOSPACE;
+			break;
+		case SAN_SERIF:
+			typeface = Typeface.SANS_SERIF;
+			break;
+		case SERIF:
+			typeface = Typeface.SERIF;
+			break;
+		}
+		
     	int s = Typeface.NORMAL;
     	Taplist_Style ts;
     	try{
@@ -69,7 +67,29 @@ public class TaplistTypeface {
     			break;
     	}
 		
-    	return Typeface.create(typeface, s);
+    	return Typeface.create(typeface, s);		
+	}
+	
+	public static Typeface create(String font, String style, boolean isCustomFont, Context context) {
+    	if (isCustomFont) {
+    		Log.d(DEBUG_TAG, String.format("Trying to get font for: %s", font));
+    		Typeface typeface;
+    		try {
+    			typeface = Typeface.createFromAsset(context.getAssets(), font);	
+    			Log.d(DEBUG_TAG, "Font successfully found in Assets");
+    		} catch(Exception e) {
+    			Log.d(DEBUG_TAG, "Font not found in Assets, trying Cache");
+    			try {
+    				typeface = Typeface.createFromFile(String.format("%s/fonts/%s", context.getCacheDir(), font));
+    			} catch (Exception e2) {
+    				Log.d(DEBUG_TAG, "Font not found not found in Cache");
+    				typeface = Typeface.DEFAULT;
+    			}
+    		}
+    		return typeface;
+    	} else {
+        	return create(font, style);
+    	}
 	}
 	
 

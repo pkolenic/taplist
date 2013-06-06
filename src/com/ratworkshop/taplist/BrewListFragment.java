@@ -181,21 +181,27 @@ public class BrewListFragment extends ListFragment {
 		// Set Text Colors
 		title.setTextColor(Color.parseColor(pub.getTitle_color()));
 		title.setTypeface(pub.getTitle_typeface());
+		title.setTextSize(pub.getTitle_size());
 		
 		subtitle.setTextColor(Color.parseColor(pub.getSubtitle_color()));
 		subtitle.setTypeface(pub.getSubtitle_typeface());
+		subtitle.setTextSize(pub.getSubtitle_size());
 		
 		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		abvLabel.setTypeface(pub.getSubheader_typeface());
+		abvLabel.setTextSize(pub.getSubheader_size());
 		
 		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		glassLabel.setTypeface(pub.getSubheader_typeface());
+		glassLabel.setTextSize(pub.getSubheader_size());
 		
 		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		quartLabel.setTypeface(pub.getSubheader_typeface());
+		quartLabel.setTextSize(pub.getSubheader_size());
 		
 		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		growlerLabel.setTypeface(pub.getSubheader_typeface());
+		growlerLabel.setTextSize(pub.getSubheader_size());
     }
     
     @Override

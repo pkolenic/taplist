@@ -37,13 +37,15 @@ public class Pub {
 	/* Header Styles */
 	private String title_color;
 	private Typeface title_typeface;
+	private float title_size;
 	
 	private String subtitle_color;
 	private String subheader_text_color;
+	private float subtitle_size;
 
 	private Typeface subtitle_typeface;
-	
 	private Typeface subheader_typeface;
+	private float subheader_size;
 	
 	/* Tap List Styles */
 	private String featured_brew_color;
@@ -67,7 +69,7 @@ public class Pub {
 	public Pub(String name) {
 		this("", name, "", "", "", "", "", "", "", 
 			 "#000000", "#ffe8db", "#ffe8db", "#000000", "e9dcc8",
-			 Typeface.MONOSPACE, Typeface.MONOSPACE, Typeface.DEFAULT,
+			 Typeface.MONOSPACE, 16.0f, Typeface.MONOSPACE, 36.0f, Typeface.DEFAULT, 12.0f,
 			 "#607d32", Typeface.DEFAULT_BOLD, "#607d32", Typeface.DEFAULT_BOLD,
 			 "#e9dcc8", Typeface.DEFAULT, "#e9dcc8", Typeface.DEFAULT_BOLD,
 			 "#000000"
@@ -79,7 +81,7 @@ public class Pub {
 			String subtitle, 
 			String header_color, String title_color, String subtitle_color,
 			String subheader_color, String subheader_text_color,
-			Typeface title_typeface,Typeface subtitle_typeface,Typeface subheader_typeface,
+			Typeface title_typeface, float title_size, Typeface subtitle_typeface, float subtitle_size, Typeface subheader_typeface, float subheader_size,
 			String featured_brew_color, Typeface featured_brew_typeface, String featured_brew_name_color, Typeface featured_brew_name_typeface,
 			String taplist_color, Typeface taplist_typeface, String taplist_name_color, Typeface taplist_name_typeface,
 			String taplist_background_color) {
@@ -100,8 +102,11 @@ public class Pub {
 		this.subheader_color = subheader_color;
 		this.subheader_text_color = subheader_text_color;
 		this.title_typeface = title_typeface;
+		this.title_size = title_size;
 		this.subtitle_typeface = subtitle_typeface;
+		this.subtitle_size = subtitle_size;
 		this.subheader_typeface = subheader_typeface;
+		this.subheader_size = subheader_size;
 		this.featured_brew_color = featured_brew_color;
 		this.featured_brew_typeface = featured_brew_typeface;
 		this.featured_brew_name_color = featured_brew_name_color;
@@ -167,6 +172,11 @@ public class Pub {
 
 	public void setLogo(String path) {
 		this.logo_path = path;
+		
+		if (path.equals("")) {
+			// no path so no point trying to download
+			return;
+		}
 		
     	URL url;
     	String filename = null;
@@ -378,5 +388,29 @@ public class Pub {
 
 	public void setTaplist_background_color(String taplist_background_color) {
 		this.taplist_background_color = taplist_background_color;
+	}
+
+	public float getTitle_size() {
+		return title_size;
+	}
+
+	public void setTitle_size(float title_size) {
+		this.title_size = title_size;
+	}
+
+	public float getSubtitle_size() {
+		return subtitle_size;
+	}
+
+	public void setSubtitle_size(float subtitle_size) {
+		this.subtitle_size = subtitle_size;
+	}
+
+	public float getSubheader_size() {
+		return subheader_size;
+	}
+
+	public void setSubheader_size(float subheader_size) {
+		this.subheader_size = subheader_size;
 	}
 }
