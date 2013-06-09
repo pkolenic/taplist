@@ -31,7 +31,8 @@
         <activity
             android:name="com.ratworkshop.taplist.BrewListActivity"
             android:label="@string/app_name"
-            android:theme="@style/TaplistActivtyTheme" >
+            android:theme="@style/TaplistActivtyTheme" 
+            android:configChanges="orientation|screenSize">
         </activity>
         <activity
             android:name="com.ratworkshop.taplist.BrewDetailActivity"
@@ -45,6 +46,10 @@
         <service
             android:name="com.ratworkshop.taplist.service.ImageDownloader"
             android:exported="false" >
+        </service>
+        <service 
+			 android:name="com.ratworkshop.taplist.service.FontDownloader"
+             android:exported="false" >
         </service>
     </application>
 

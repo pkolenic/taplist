@@ -41,6 +41,7 @@ public class BrewListFragment extends ListFragment {
      * activated item position. Only used on tablets.
      */
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String STATE_ACTIVATED_PUB = "activated_pub";
 
     /**
      * The fragment's current callback object, which is notified of list item
@@ -87,6 +88,7 @@ public class BrewListFragment extends ListFragment {
 	private TextView glassLabel;
 	private TextView quartLabel;
 	private TextView growlerLabel;
+	private ListView list;
 	    
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -131,6 +133,7 @@ public class BrewListFragment extends ListFragment {
     	final Activity activity = getActivity();    	
     	// Lazily Instantiate UI Components
     	if (header == null) {
+    		list = (ListView) activity.findViewById(android.R.id.list);
     		header = (LinearLayout) activity.findViewById(R.id.taplistHeader);
     		pub_logo = (ImageView) header.findViewById(R.id.pubLogo);
     		title = (TextView) header.findViewById(R.id.taplistTitle);
@@ -175,32 +178,33 @@ public class BrewListFragment extends ListFragment {
 		}
 		
 		// Set Background Colors
-		header.setBackgroundColor(Color.parseColor(pub.getHeader_color()));
-		subheader.setBackgroundColor(Color.parseColor(pub.getSubheader_color()));
+		list.setBackgroundColor(pub.getTaplist_background_color());
+		header.setBackgroundColor(pub.getHeader_color());
+		subheader.setBackgroundColor(pub.getSubheader_color());
 		
 		// Set Text Colors
 		title.setTextColor(Color.parseColor(pub.getTitle_color()));
-		title.setTypeface(pub.getTitle_typeface());
+		title.setTypeface(pub.getTitle_typeface(activity));
 		title.setTextSize(pub.getTitle_size());
 		
 		subtitle.setTextColor(Color.parseColor(pub.getSubtitle_color()));
-		subtitle.setTypeface(pub.getSubtitle_typeface());
+		subtitle.setTypeface(pub.getSubtitle_typeface(activity));
 		subtitle.setTextSize(pub.getSubtitle_size());
 		
 		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		abvLabel.setTypeface(pub.getSubheader_typeface());
+		abvLabel.setTypeface(pub.getSubheader_typeface(activity));
 		abvLabel.setTextSize(pub.getSubheader_size());
 		
 		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		glassLabel.setTypeface(pub.getSubheader_typeface());
+		glassLabel.setTypeface(pub.getSubheader_typeface(activity));
 		glassLabel.setTextSize(pub.getSubheader_size());
 		
 		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		quartLabel.setTypeface(pub.getSubheader_typeface());
+		quartLabel.setTypeface(pub.getSubheader_typeface(activity));
 		quartLabel.setTextSize(pub.getSubheader_size());
 		
 		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
-		growlerLabel.setTypeface(pub.getSubheader_typeface());
+		growlerLabel.setTypeface(pub.getSubheader_typeface(activity));
 		growlerLabel.setTextSize(pub.getSubheader_size());
     }
     
@@ -211,6 +215,11 @@ public class BrewListFragment extends ListFragment {
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+        	
+        	if (savedInstanceState.containsKey(STATE_ACTIVATED_PUB)) {
+        		onPubSelected(savedInstanceState.getString(STATE_ACTIVATED_PUB));
+        	}
+        	
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
        
@@ -252,6 +261,7 @@ public class BrewListFragment extends ListFragment {
         if (mActivatedPosition != ListView.INVALID_POSITION) {
             // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+            outState.putString(STATE_ACTIVATED_PUB, pubId);
         }
     }
 

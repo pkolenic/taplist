@@ -81,6 +81,7 @@ public class TaplistTypeface {
     			Log.d(DEBUG_TAG, "Font not found in Assets, trying Cache");
     			try {
     				typeface = Typeface.createFromFile(String.format("%s/fonts/%s", context.getCacheDir(), font));
+    				Log.d(DEBUG_TAG, "Font successfully found in Cache");
     			} catch (Exception e2) {
     				Log.d(DEBUG_TAG, "Font not found not found in Cache");
     				typeface = Typeface.DEFAULT;

@@ -38,10 +38,10 @@ public class BrewDetailActivity extends FragmentActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(BrewDetailFragment.ARG_BREW_ID,
-                    getIntent().getStringExtra(BrewDetailFragment.ARG_BREW_ID));
-            arguments.putString(BrewDetailFragment.ARG_PUB_ID, 
-            		getIntent().getStringExtra(BrewDetailFragment.ARG_PUB_ID));
+            arguments.putString(getString(R.string.ARG_BREW_ID),
+                    getIntent().getStringExtra(getString(R.string.ARG_BREW_ID)));
+            arguments.putString(getString(R.string.ARG_PUB_ID), 
+            		getIntent().getStringExtra(getString(R.string.ARG_PUB_ID)));
             BrewDetailFragment fragment = new BrewDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -61,7 +61,9 @@ public class BrewDetailActivity extends FragmentActivity {
                 //
                 // http://developer.android.com/design/patterns/navigation.html#up-vs-back
                 //
-                NavUtils.navigateUpTo(this, new Intent(this, BrewListActivity.class));
+            	Intent intent = new Intent(this, BrewListActivity.class);
+            	intent.putExtra(getString(R.string.ARG_PUB_ID), getIntent().getStringExtra(getString(R.string.ARG_PUB_ID)));
+                NavUtils.navigateUpTo(this, intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

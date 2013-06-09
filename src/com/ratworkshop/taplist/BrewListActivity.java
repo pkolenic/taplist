@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.ratworkshop.taplist.adapters.SelectionSpinnerAdapter;
 import com.ratworkshop.taplist.content.PubContent;
+import com.ratworkshop.taplist.models.Pub;
 
 
 /**
@@ -32,6 +33,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+	private boolean initial = true;
     private boolean mTwoPane;
     private String pubId;
     private OnNavigationListener mOnNavigationListener;
@@ -58,7 +60,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 
         final ActionBar actionBar = getActionBar();        
         actionBar.setCustomView(R.layout.activity_header);
-//        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
@@ -71,9 +73,17 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 
         	  @Override
         	  public boolean onNavigationItemSelected(int position, long itemId) {
-        		// Set the Pub Id on the BrewListFragment and Redraw the List
-        		pubId = PubContent.PUB_LIST.get(position);
-                ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position));
+        		pubId = getIntent().getStringExtra(getString(R.string.ARG_PUB_ID));
+        		if (initial && pubId != null) {
+        			initial = false;
+        			Pub pub = PubContent.PUB_MAP.get(pubId);
+        			int pos = PubContent.PUB_LIST.indexOf(pub);
+        			mOnNavigationListener.onNavigationItemSelected(pos, 0);
+        		} else {
+        			// Set the Pub Id on the BrewListFragment and Redraw the List
+        			pubId = PubContent.PUB_LIST.get(position).getId();
+                	((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position).getId());
+        		}
         	    return true;
         	  }
         };
@@ -91,8 +101,8 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(BrewDetailFragment.ARG_BREW_ID, id);
-            arguments.putString(BrewDetailFragment.ARG_PUB_ID, pubId);
+            arguments.putString(getString(R.string.ARG_BREW_ID), id);
+            arguments.putString(getString(R.string.ARG_PUB_ID), pubId);
             BrewDetailFragment fragment = new BrewDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -103,8 +113,8 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, BrewDetailActivity.class);
-            detailIntent.putExtra(BrewDetailFragment.ARG_BREW_ID, id);
-            detailIntent.putExtra(BrewDetailFragment.ARG_PUB_ID, pubId);
+            detailIntent.putExtra(getString(R.string.ARG_BREW_ID), id);
+            detailIntent.putExtra(getString(R.string.ARG_PUB_ID), pubId);
             startActivity(detailIntent);
         }
     }

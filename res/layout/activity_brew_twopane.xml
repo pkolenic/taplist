@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
@@ -20,18 +21,26 @@
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
 
-    <fragment
-        android:id="@+id/brew_list"
-        android:name="com.ratworkshop.taplist.BrewListFragment"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:layout="@android:layout/list_content" />
+        android:orientation="vertical" >
+
+        <include layout="@layout/taplist_header" />
+
+        <fragment
+            android:id="@+id/brew_list"
+            android:name="com.ratworkshop.taplist.BrewListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@android:layout/list_content" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/brew_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_weight="1" />
 
 </LinearLayout>

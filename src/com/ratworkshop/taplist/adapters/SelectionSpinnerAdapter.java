@@ -3,6 +3,7 @@ package com.ratworkshop.taplist.adapters;
 import java.util.List;
 
 import com.ratworkshop.taplist.R;
+import com.ratworkshop.taplist.models.Pub;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,22 +13,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class SelectionSpinnerAdapter extends ArrayAdapter<String> {
+public class SelectionSpinnerAdapter extends ArrayAdapter<Pub> {
 
 	private Context context;
 	private int layoutResourceId;
 	private int dropdownViewResourceId = -1;
 	private int selectionStringId = -1;
-	private List<String> publist = null;
+	private List<Pub> publist = null;
 
-	public SelectionSpinnerAdapter(Context context, int layoutResourceId, List<String> items) {
+	public SelectionSpinnerAdapter(Context context, int layoutResourceId, List<Pub> items) {
 		super(context, layoutResourceId, items);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;
 		this.publist = items;
 	}
 	
-	public SelectionSpinnerAdapter(Context context, int layoutResourceId, List<String> items, int selectionStringId) {
+	public SelectionSpinnerAdapter(Context context, int layoutResourceId, List<Pub> items, int selectionStringId) {
 		super(context, layoutResourceId, items);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;
@@ -41,7 +42,7 @@ public class SelectionSpinnerAdapter extends ArrayAdapter<String> {
 		int resourceId = dropdownViewResourceId < 0 ? layoutResourceId : dropdownViewResourceId;
 		View row = inflater.inflate(resourceId, parent, false);
 		TextView label = (TextView)row.findViewById(R.id.text1);
-		label.setText(publist.get(position));
+		label.setText(publist.get(position).getName());
 		return row;
 	}
 	

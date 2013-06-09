@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
+import com.ratworkshop.taplist.service.FontDownloader;
 import com.ratworkshop.taplist.utilities.TaplistTypeface;
 
 /**
@@ -19,32 +21,47 @@ import com.ratworkshop.taplist.utilities.TaplistTypeface;
 public class PubContent {
 	
     public static Map<String, Pub> PUB_MAP = new HashMap<String, Pub>();
-    public static List<String> PUB_LIST = new ArrayList<String>();
+    public static List<Pub> PUB_LIST = new ArrayList<Pub>();
+    
+    public static void clearContent() {
+    	PUB_MAP = new HashMap<String, Pub>();
+    	PUB_LIST = new ArrayList<Pub>();
+    }
+    
+    public static boolean isEmpty() {
+    	return PUB_LIST.size() == 0;
+    }
     
     public static void parsePubLists(String pubListings, Context context) {
     	if (pubListings == null) {
     		Pub pub = new Pub("No Pubs Available");
-    		PUB_MAP.put(pub.getName(), pub);
+    		PUB_MAP.put("0", pub);
     		return;
     	}
     	
+    	// Download Custom Fonts
+		Intent intent = new Intent(context, FontDownloader.class);
+		intent.putExtra(FontDownloader.FONT_URL, "https://s3.amazonaws.com/ratworkshop_taplist/fonts/spaceranger.ttf");
+		context.startService(intent);	
+    	
+    	
 		// Create the Pubs and TapLists
-		Pub pub = new Pub("1", "Meridian", "10 Meridian Rd.", "Meridian",
-				"ID", "83706",
-				"http://dc373.4shared.com/img/8FZsjxVO/s7/Monopoly.jpg",
-				"The Beer Garden", "Custom Beer", "#000000", "#ffe8db",
-				"#ffe8db", "#000000", "#e9dcc8",
-				TaplistTypeface.create("MONOSPACE", "BOLD", false, context), 16.0f,
-				TaplistTypeface.create("MONOSPACE", "BOLD", false, context), 36.0f,
-				TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 12.0f,
+		Pub pub = new Pub("1", "Brewforia - Meridian",
 				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
 				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
 				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
-				 "#000000");
-    	pub.downloadLogo(context);
-    	PUB_MAP.put(pub.getName(), pub);
-    	PUB_LIST.add(pub.getName());
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context));
+		pub.setLogo("https://s3.amazonaws.com/ratworkshop_taplist/logos/1/pub-1-logo-135156678.png", context);
+		pub.setPubAddress( "101 Overland Rd", "Meridian", "ID", "83706");
+		pub.setPubTitle("The Beer Garden", "#ffe8db", "MONOSPACE", "BOLD", false, 16.0f);
+		pub.setPubSubtitle("Custom Beer", "#ffe8db", "MONOSPACE", "BOLD", false, 36.0f);
+		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		pub.setHeader_color("#000000");
+		pub.setSubheader_color("#000000");
+		pub.setTaplist_background_color("#000000");
+		
+    	PUB_MAP.put(pub.getId(), pub);
+    	PUB_LIST.add(pub);
     	
 		// Meridian Tap List
     	pub.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
@@ -58,21 +75,22 @@ public class PubContent {
 		pub.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner, "PILSNER"));
     	
     	
-		pub = new Pub("2", "Brewforia - Eagle", "101 State St.", "Eagle",
-				"ID", "83703", "", "Beer Market", "[taplist]", "#000000",
-				"#ffe8db", "#ffe8db", "#000000", "#e9dcc8",
-//				TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
-				TaplistTypeface.create("fonts/Hieronfreymious boschian.ttf", "", true, context), 20.0f,
-				TaplistTypeface.create("MONOSPACE", "BOLD", false, context), 36.0f,
-				TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 12.0f,
+		pub = new Pub("2", "Brewforia - Eagle",
 				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
 				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
 				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
-				 "#000000");
-    	pub.downloadLogo(context);
-    	PUB_MAP.put(pub.getName(), pub);
-    	PUB_LIST.add(pub.getName());
+				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context));
+		pub.setLogo("", context);
+		pub.setPubAddress("101 State St.", "Eagle", "ID", "83703");
+		pub.setPubTitle("Beer Market", "#ffe8db", "fonts/Hieronfreymious boschian.ttf", "", true, 20.f);
+		pub.setPubSubtitle("[taplist]", "#ffe8db", "spaceranger.ttf", "", true, 36.0f);
+		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		pub.setHeader_color("#000000");
+		pub.setSubheader_color("#000000");
+		pub.setTaplist_background_color("#000000");
+		
+    	PUB_MAP.put(pub.getId(), pub);
+    	PUB_LIST.add(pub);
 
 		// Eagle Tap List
 		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
@@ -86,20 +104,22 @@ public class PubContent {
 		pub.addBrew(new Brew("9", "Payette Mutton Buster Brown Ale", "", 5.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
 		pub.addBrew(new Brew("10", "Seven Brides Lil's Pils", "", 5.6, 3.00, 5.00, 9.00, true, R.drawable.classic_pilsner, "PILSNER"));
 		
-		pub = new Pub("3", "Brewforia - Meridian", "101 Overland Rd.", "Meridian",
-				"ID", "83713", "", "Beer Market", "[taplist]", "#FF0000",
-				"#FFFFFF", "#000000", "#00FF00", "#FF00FF",
-				TaplistTypeface.create("SAN_SERIF", "ITALIC", false, context), 16.0f,
-				TaplistTypeface.create("DEFAULT_BOLD", "NORMAL", false, context), 36.0f,
-				TaplistTypeface.create("MONOSPACE", "BOLD_ITALIC", false, context), 12.0f,
+		pub = new Pub("3", "Test",
 				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
 				 "#99e521", TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
 				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context),
-				 "#99e521", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
-				 "#360707");
-    	pub.downloadLogo(context);
-    	PUB_MAP.put(pub.getName(), pub);
-    	PUB_LIST.add(pub.getName());
+				 "#99e521", TaplistTypeface.create("DEFAULT", "BOLD", false, context));
+		pub.setLogo("", context);
+		pub.setPubAddress("10 Meridian Rd", "Meridian", "ID", "83713");
+		pub.setPubTitle("Beer Market", "#FFFFFF", "SAN_SERIF", "ITALIC", false, 16.0f);
+		pub.setPubSubtitle("[taplist]", "#000000", "DEFAULT_BOLD", "NORMAL", false, 36.0f);
+		pub.setPubSubheader("#FF00FF", "MONOSPACE", "BOLD_ITALIC", false, 12.0f);
+		pub.setHeader_color("#FF0000");
+		pub.setSubheader_color("#00FF00");
+		pub.setTaplist_background_color("#360707");
+
+    	PUB_MAP.put(pub.getId(), pub);
+    	PUB_LIST.add(pub);
 
 		// Eagle Tap List
 		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));

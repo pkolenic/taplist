@@ -11,6 +11,7 @@ import java.net.URL;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import com.ratworkshop.taplist.content.PubContent;
 public class BrewSplashActivity extends Activity {
 
 	private static final String DEBUG_TAG = "BrewSplash";
+	private static final String LAST_UPDATE = "com.ratworkshop.taplist.lastupdate";
 	private Context mContext;
 
 	@Override
@@ -29,16 +31,25 @@ public class BrewSplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 
-		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		if (networkInfo != null && networkInfo.isConnected()) {
-			new FetchPubLists().execute();
+		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		long now = System.currentTimeMillis();
+		long then = sharedPref.getLong(LAST_UPDATE, now);
+		
+		// If its been longer than an hour or now equals then (the app hasn't been used)
+		if (now - then > (1000 * 60 * 60) || now == then || PubContent.isEmpty()) {
+			PubContent.clearContent();
+			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+			if (networkInfo != null && networkInfo.isConnected()) {
+				new FetchPubLists().execute();
+			} else {
+				// @TODO need to load from local DB
+				PubContent.parsePubLists(null, mContext);
+				closeSplash();
+			}	
 		} else {
-			// @TODO need to load from local DB
-			PubContent.parsePubLists(null, mContext);
 			closeSplash();
 		}
-
 	}
 
 	protected void closeSplash() {
@@ -80,6 +91,12 @@ public class BrewSplashActivity extends Activity {
 		Log.d(DEBUG_TAG, string);
 
 		PubContent.parsePubLists(string, mContext);
+		
+		// Set the Last Update
+		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putLong(LAST_UPDATE, System.currentTimeMillis());
+		editor.commit();
 	}
 
 	private String getPubList() throws IOException {

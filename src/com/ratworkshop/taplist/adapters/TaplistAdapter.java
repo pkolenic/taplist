@@ -99,8 +99,8 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		return row;
 	}
 
-	public void setBackgroundColor(String color) {
-		backgroundColor = Color.parseColor(color);
+	public void setBackgroundColor(int color) {
+		backgroundColor = color;
 	}
 	
 	public void setFeaturedColor(String color) {

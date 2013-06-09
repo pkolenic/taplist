@@ -13,4 +13,8 @@
     <string name="activty_header_image_desc">Taplist</string>
     <string name="pub_selection">Select a Pub</string>
     
+    <!-- KEYS  -->
+    <string name="ARG_PUB_ID">com.ratworkshop.taplist.pub_id</string>
+    <string name="ARG_BREW_ID">com.ratworkshop.taplist.brew_id</string>
+    
 </resources>
