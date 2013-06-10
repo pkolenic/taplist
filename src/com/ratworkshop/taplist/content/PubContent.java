@@ -63,10 +63,12 @@ public class PubContent {
     	PUB_MAP.put(pub.getId(), pub);
     	PUB_LIST.add(pub);
     	
+    	// @TODO need to map Glass Type String to Resource ID
+    	
 		// Meridian Tap List
-    	pub.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
-    	pub.addBrew(new Brew("12", "Crooked Fence Pineapple IPA", "", 6.8, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
-    	pub.addBrew(new Brew("13", "Grand Teton Lost Continent Double IPA", "", 8.0, 3.69, 8.49, 16.99, false, R.drawable.belgian_ale, "IPA"));
+    	pub.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "A great tasting Ale that makes any steak better.", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
+    	pub.addBrew(new Brew("12", "Crooked Fence Pineapple IPA", "The pineapple flavor gives this IPA a tropical feel.", 6.8, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
+    	pub.addBrew(new Brew("13", "Grand Teton Lost Continent Double IPA", "A great IPA for any season of the year.", 8.0, 3.69, 8.49, 16.99, false, R.drawable.belgian_ale, "IPA"));
     	pub.addBrew(new Brew("14", "Hoegaarden Belgian Wit", "", 4.9, 3.49, 6.99, 13.99, true, R.drawable.wheat_beer, "WHEAT"));
     	pub.addBrew(new Brew("15", "New Belgium/Red Rock Paardebloem Ale", "", 9.0, 3.99, 9.29, 18.49, false, R.drawable.craft_pub, "ALE"));
 		pub.addBrew(new Brew("16", "Salmon River Buzz Buzz Coffer Porter", "", 5.6, 3.69, 7.49, 14.99, false, R.drawable.porter_stout, "PORTER"));

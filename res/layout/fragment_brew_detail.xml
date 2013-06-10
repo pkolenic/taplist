@@ -1,23 +1,147 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dummy_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/brew_detail_scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    >
+    
+<LinearLayout 
+    android:id="@+id/brew_detail_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/details_brew_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:contentDescription="@string/tap_list_image_desc"
+        android:scaleType="center"
+        android:src="@drawable/belgian_ale" />
+    
+    <LinearLayout
+        android:id="@+id/details_name_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/details_brew_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:text="@string/brew_name"
+            android:textIsSelectable="false" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/details_brew_abv"
+            style="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingRight="16dp"
+            android:text="@string/brew_abv"
+            android:textIsSelectable="false" />
+    </LinearLayout>
 
     <TextView
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/brew_detail"
-        style="?android:attr/textAppearanceLarge"
+        android:id="@+id/details_brew_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        tools:context=".BrewDetailFragment" />
+        android:text="@string/brew_name"
+        android:textIsSelectable="false" >
+    </TextView>
 
-    <TextView
-        android:id="@+id/brew_abv"
-        style="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/details_prices_header"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp" />
+        android:background="#000000"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/details_Glass_header"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/tap_list_header_glass"
+            android:textColor="@color/SubHeader"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/details_Quart_header"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/tap_list_header_quart"
+            android:textColor="@color/SubHeader"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/details_Growler_header"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/tap_list_header_growler"
+            android:textColor="@color/SubHeader"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/details_prices"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/details_Glass"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/tap_list_header_glass"
+            android:textColor="@color/SubHeader"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/details_Quart"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/tap_list_header_quart"
+            android:textColor="@color/SubHeader"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/details_Growler"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/tap_list_header_growler"
+            android:textColor="@color/SubHeader"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+    </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

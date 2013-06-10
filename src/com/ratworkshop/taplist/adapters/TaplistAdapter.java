@@ -75,9 +75,9 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		
 		Brew brew = taplist.get(position);
 		holder.brewTitle.setText(brew.getName());
-		holder.brewAPV.setText(Double.toString(brew.getAbv()) + "%");
-		holder.glassPrice.setText(String.format("$%.2f",brew.getGlass()));
-		holder.quartPrice.setText(String.format("$%.2f",brew.getQuart()));
+		holder.brewAPV.setText(String.format("%.1f%%", brew.getAbv()));
+		holder.glassPrice.setText(String.format("$%.2f", brew.getGlass()));
+		holder.quartPrice.setText(String.format("$%.2f", brew.getQuart()));
 		holder.growlerPrice.setText(String.format("$%.2f", brew.getGrowler()));
 		holder.imgIcon.setImageResource(brew.getIcon());
 		

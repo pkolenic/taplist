@@ -42,6 +42,7 @@ public class BrewDetailActivity extends FragmentActivity {
                     getIntent().getStringExtra(getString(R.string.ARG_BREW_ID)));
             arguments.putString(getString(R.string.ARG_PUB_ID), 
             		getIntent().getStringExtra(getString(R.string.ARG_PUB_ID)));
+            
             BrewDetailFragment fragment = new BrewDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
