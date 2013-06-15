@@ -14,6 +14,7 @@
     <string name="pub_selection">Select a Pub</string>
     <string name="brew_name">Brew Name</string>
     <string name="brew_abv">Brew ABV</string>
+    <string name="featured">FEATURED</string>
     
     <!-- KEYS  -->
     <string name="ARG_PUB_ID">com.ratworkshop.taplist.pub_id</string>

@@ -55,6 +55,14 @@ public class Pub {
 	private String subheader_style;
 	private boolean subheader_font_custom;	
 	
+	/* Description */
+	private String description_text_color;
+	private float description_size;
+	private Typeface description_typeface;
+	private String description_font;
+	private String description_style;
+	private boolean description_font_custom;	
+	
 	/* Background Colors */
 	private int header_color;
 	private int subheader_color;
@@ -101,6 +109,7 @@ public class Pub {
 		setPubTitle("", "#ff8db", "MONOSPACE", "BOLD", false, 16.0f);
 		setPubSubtitle("", "#ff8db", "MONOSPACE", "NORMAL", false, 36.0f);
 		setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
 		setHeader_color("#000000");
 		setSubheader_color("#000000");
 		setTaplist_background_color("#000000");
@@ -189,6 +198,22 @@ public class Pub {
 		this.subheader_style = subheader_style;
 		this.subheader_font_custom = subheader_font_custom;
 		this.subheader_size = subheader_size;
+	}
+	
+	/**
+	 * Sets the Description Styles
+	 * @param description_text_color
+	 * @param description_font
+	 * @param description_style
+	 * @param description_font_custom
+	 * @param description_size
+	 */
+	public void setDescriptionStyles(String description_text_color, String description_font, String description_style, boolean description_font_custom, float description_size) {
+		this.description_text_color = description_text_color;
+		this.description_font = description_font;
+		this.description_style = description_style;
+		this.description_font_custom = description_font_custom;
+		this.description_size = description_size;
 	}
 	
 	/**
@@ -281,6 +306,23 @@ public class Pub {
 
 	public float getSubheader_size() {
 		return subheader_size;
+	}
+	
+	/* DESCRIPTION GETTERS */
+	public String getDescription_text_color() {
+		return description_text_color;
+	}
+	
+	public Typeface getDescription_typeface(Context context) {
+		if (description_typeface == null) {
+			description_typeface = TaplistTypeface.create(description_font, description_style, description_font_custom, context);
+		}
+		return description_typeface;
+	}
+	
+
+	public float getDescription_size() {
+		return description_size;
 	}
 	
 	/* LOGO */

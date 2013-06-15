@@ -56,14 +56,16 @@ public class PubContent {
 		pub.setPubTitle("The Beer Garden", "#ffe8db", "MONOSPACE", "BOLD", false, 16.0f);
 		pub.setPubSubtitle("Custom Beer", "#ffe8db", "MONOSPACE", "BOLD", false, 36.0f);
 		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		pub.setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
 		pub.setHeader_color("#000000");
 		pub.setSubheader_color("#000000");
 		pub.setTaplist_background_color("#000000");
+		// TODO - call these setter functions once they exist
+//		pub.setFeaturedBrew();
+//		pub.setTaplistStyles();
 		
     	PUB_MAP.put(pub.getId(), pub);
     	PUB_LIST.add(pub);
-    	
-    	// @TODO need to map Glass Type String to Resource ID
     	
 		// Meridian Tap List
     	pub.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "A great tasting Ale that makes any steak better.", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
@@ -87,6 +89,7 @@ public class PubContent {
 		pub.setPubTitle("Beer Market", "#ffe8db", "fonts/Hieronfreymious boschian.ttf", "", true, 20.f);
 		pub.setPubSubtitle("[taplist]", "#ffe8db", "spaceranger.ttf", "", true, 36.0f);
 		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		pub.setDescriptionStyles("#e9dcc8", "spaceranger.ttf", "", true, 16.0f);
 		pub.setHeader_color("#000000");
 		pub.setSubheader_color("#000000");
 		pub.setTaplist_background_color("#000000");
@@ -95,7 +98,7 @@ public class PubContent {
     	PUB_LIST.add(pub);
 
 		// Eagle Tap List
-		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
+		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "A great tasting Ale that makes any steak better.", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
 		pub.addBrew(new Brew("2", "Mendocino Black Hawk Stout", "", 5.6, 3.49, 6.99, 13.99, false, R.drawable.porter_stout, "STOUT"));
 		pub.addBrew(new Brew("3", "Selkirk Abbey Saint Stephen Saison", "", 5.6, 3.69, 6.99, 13.99, false, R.drawable.wheat_beer, "WHEAT"));
 		pub.addBrew(new Brew("4", "Crooked Fence Devil's Pick IPA", "", 7.0, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
@@ -116,6 +119,7 @@ public class PubContent {
 		pub.setPubTitle("Beer Market", "#FFFFFF", "SAN_SERIF", "ITALIC", false, 16.0f);
 		pub.setPubSubtitle("[taplist]", "#000000", "DEFAULT_BOLD", "NORMAL", false, 36.0f);
 		pub.setPubSubheader("#FF00FF", "MONOSPACE", "BOLD_ITALIC", false, 12.0f);
+		pub.setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
 		pub.setHeader_color("#FF0000");
 		pub.setSubheader_color("#00FF00");
 		pub.setTaplist_background_color("#360707");

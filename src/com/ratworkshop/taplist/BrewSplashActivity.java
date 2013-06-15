@@ -43,7 +43,7 @@ public class BrewSplashActivity extends Activity {
 			if (networkInfo != null && networkInfo.isConnected()) {
 				new FetchPubLists().execute();
 			} else {
-				// @TODO need to load from local DB
+				// TODO need to load from local DB
 				PubContent.parsePubLists(null, mContext);
 				closeSplash();
 			}	
