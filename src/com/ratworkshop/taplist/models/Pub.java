@@ -68,32 +68,45 @@ public class Pub {
 	private int subheader_color;
 	private int taplist_background_color;
 	
-	/* Tap List Styles */
-	private String featured_brew_color;
-	private Typeface featured_brew_typeface;
-	
-	private String featured_brew_name_color;
-	private Typeface featured_brew_name_typeface;
-	
+	/* Tap List Details */
 	private String taplist_color;
+	private float taplist_size;
 	private Typeface taplist_typeface;
+	private String taplist_font;
+	private String taplist_style;
+	private boolean taplist_font_custom;
 	
+	/* Tap List Featured Details */
+	private String featured_brew_color;
+	private float featured_brew_size;
+	private Typeface featured_brew_typeface;
+	private String featured_brew_font;
+	private String featured_brew_style;
+	private boolean featured_brew_font_custom;
+	
+	/* Tap List Name */
 	private String taplist_name_color;
+	private float taplist_name_size;
+	private float taplist_name_details_size;
 	private Typeface taplist_name_typeface;
+	private String taplist_name_font;
+	private String taplist_name_style;
+	private boolean taplist_name_font_custom;
+		
+	/* Tap List Featured Name */
+	private String featured_brew_name_color;
+	private float featured_brew_name_size;
+	private Typeface featured_brew_name_typeface;
+	private String featured_brew_name_font;
+	private String featured_brew_name_style;
+	private boolean featured_brew_name_font_custom;
+	
 	
 	/* Brews */
 	private List<Brew> tap_list;
 	private Map<String, Brew> brew_map = new HashMap<String, Brew>();
 	
 	public Pub(String name) {
-		/*
-		this("0", name,
-			 "#607d32", Typeface.DEFAULT_BOLD, // brew details 
-			 "#607d32", Typeface.DEFAULT_BOLD, // featured brew details
-			 "#e9dcc8", Typeface.DEFAULT,  // brew name
-			 "#e9dcc8", Typeface.DEFAULT_BOLD, // featured brew name
-			 );
-		*/
 		this("0", name);
 	}
 	
@@ -105,32 +118,19 @@ public class Pub {
 	public Pub(String id, String name) {
 		this.id = id;
 		this.name = name;
+		tap_list = new ArrayList<Brew>();
 		setPubAddress("", "", "", "");
 		setPubTitle("", "#ff8db", "MONOSPACE", "BOLD", false, 16.0f);
 		setPubSubtitle("", "#ff8db", "MONOSPACE", "NORMAL", false, 36.0f);
 		setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
 		setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
+		setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
+		setTaplistNameStyles("#e9dcc8", "DEFAULT", "BOLD", false, 12.0f, 18.0f);
+		setFeaturedBrewNameStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
 		setHeader_color("#000000");
 		setSubheader_color("#000000");
 		setTaplist_background_color("#000000");
-	}
-	
-	public Pub(String id, String name, 
-			String featured_brew_color, Typeface featured_brew_typeface, String featured_brew_name_color, Typeface featured_brew_name_typeface,
-			String taplist_color, Typeface taplist_typeface, String taplist_name_color, Typeface taplist_name_typeface) {
-		
-		tap_list = new ArrayList<Brew>();
-		this.id = id;
-		this.name = name;
-
-		this.featured_brew_color = featured_brew_color;
-		this.featured_brew_typeface = featured_brew_typeface;
-		this.featured_brew_name_color = featured_brew_name_color;
-		this.featured_brew_name_typeface = featured_brew_name_typeface;
-		this.taplist_color = taplist_color;
-		this.taplist_typeface = taplist_typeface;
-		this.taplist_name_color = taplist_name_color;
-		this.taplist_name_typeface = taplist_name_typeface;
 	}
 
 	/**
@@ -214,6 +214,72 @@ public class Pub {
 		this.description_style = description_style;
 		this.description_font_custom = description_font_custom;
 		this.description_size = description_size;
+	}
+	
+	/**
+	 * Sets the Tap List Text Styles
+	 * @param taplist_color
+	 * @param taplist_font
+	 * @param taplist_style
+	 * @param taplist_font_custom
+	 * @param taplist_size
+	 */
+	public void setTaplistStyles(String taplist_color, String taplist_font, String taplist_style, boolean taplist_font_custom, float taplist_size) {
+		this.taplist_color = taplist_color;
+		this.taplist_size = taplist_size;
+		this.taplist_font = taplist_font;
+		this.taplist_style = taplist_style;
+		this.taplist_font_custom = taplist_font_custom;
+	}
+	
+	/**
+	 * Sets the Featured Brew Styles
+	 * @param featured_brew_color
+	 * @param featured_brew_font
+	 * @param featured_brew_style
+	 * @param featured_brew_font_custom
+	 * @param featured_brew_size
+	 */
+	public void setFeaturedBrewStyles(String featured_brew_color, String featured_brew_font, String featured_brew_style, boolean featured_brew_font_custom, float featured_brew_size) {
+		this.featured_brew_color = featured_brew_color;
+		this.featured_brew_size = featured_brew_size;
+		this.featured_brew_font = featured_brew_font;
+		this.featured_brew_style = featured_brew_style;
+		this.featured_brew_font_custom = featured_brew_font_custom;
+	}
+	
+	/**
+	 * Sets the Taplist Name Styles
+	 * @param taplist_name_color
+	 * @param taplist_name_font
+	 * @param taplist_name_style
+	 * @param taplist_name_font_custom
+	 * @param taplist_name_size
+	 * @param taplist_name_details_size
+	 */
+	public void setTaplistNameStyles(String taplist_name_color, String taplist_name_font, String taplist_name_style, boolean taplist_name_font_custom, float taplist_name_size, float taplist_name_details_size) {
+		this.taplist_name_color = taplist_name_color;
+		this.taplist_name_font = taplist_name_font;
+		this.taplist_name_style = taplist_name_style;
+		this.taplist_name_font_custom = taplist_name_font_custom;
+		this.taplist_name_size = taplist_name_size;
+		this.taplist_name_details_size = taplist_name_details_size;
+	}
+	
+	/**
+	 * Sets the Featured Brew Name Styles
+	 * @param featured_brew_name_color
+	 * @param featured_brew_name_font
+	 * @param featured_brew_name_style
+	 * @param featured_brew_name_font_custom
+	 * @param featured_brew_name_size
+	 */
+	public void setFeaturedBrewNameStyles(String featured_brew_name_color, String featured_brew_name_font, String featured_brew_name_style, boolean featured_brew_name_font_custom, float featured_brew_name_size) {
+		this.featured_brew_name_color = featured_brew_name_color;
+		this.featured_brew_name_size = featured_brew_name_size;
+		this.featured_brew_name_font = featured_brew_name_font;
+		this.featured_brew_name_style = featured_brew_name_style;
+		this.featured_brew_name_font_custom = featured_brew_name_font_custom;
 	}
 	
 	/**
@@ -320,9 +386,76 @@ public class Pub {
 		return description_typeface;
 	}
 	
-
 	public float getDescription_size() {
 		return description_size;
+	}
+	
+	/* TAPLIST GETTERS */
+	public String getTaplist_color() {
+		return taplist_color;
+	}
+
+	public Typeface getTaplist_typeface(Context context) {
+		if (taplist_typeface == null) {
+			taplist_typeface = TaplistTypeface.create(taplist_font, taplist_style, taplist_font_custom, context);
+		}
+		return taplist_typeface;
+	}
+	
+	public float getTaplist_size() {
+		return taplist_size;
+	}
+	
+	/* FEATURED GETTERS */
+	public String getFeatured_brew_color() {
+		return featured_brew_color;
+	}
+
+	public Typeface getFeatured_brew_typeface(Context context) {
+		if (featured_brew_typeface == null) {
+			featured_brew_typeface = TaplistTypeface.create(featured_brew_font, featured_brew_style, featured_brew_font_custom, context);
+		}
+		return featured_brew_typeface;
+	}
+	
+	public float getFeatured_brew_size() {
+		return featured_brew_size;
+	}
+	
+	/* TAPLIST NAME GETTERS */
+	public String getTaplist_name_color() {
+		return taplist_name_color;
+	}
+
+	public Typeface getTaplist_name_typeface(Context context) {
+		if (taplist_name_typeface == null) {
+			taplist_name_typeface = TaplistTypeface.create(taplist_name_font, taplist_name_style, taplist_name_font_custom, context);
+		}
+		return taplist_name_typeface;
+	}
+	
+	public float getTaplist_name_size() {
+		return taplist_name_size;
+	}
+	
+	public float getTaplist_name_details_size() {
+		return taplist_name_details_size;
+	}
+	
+	/* TAPLIST FEATURED NAME GETTERS */
+	public String getFeatured_brew_name_color() {
+		return featured_brew_name_color;
+	}
+
+	public Typeface getFeatured_brew_name_typeface(Context context) {
+		if (featured_brew_name_typeface == null) {
+			featured_brew_name_typeface = TaplistTypeface.create(featured_brew_name_font, featured_brew_name_style, featured_brew_name_font_custom, context);
+		}
+		return featured_brew_name_typeface;
+	}
+	
+	public float getFeatured_brew_name_size() {
+		return featured_brew_name_size;
 	}
 	
 	/* LOGO */
@@ -416,70 +549,5 @@ public class Pub {
 	
 	public List<Brew> getTaplist() {
 		return tap_list;
-	}
-	
-	
-	public String getFeatured_brew_color() {
-		return featured_brew_color;
-	}
-
-	public void setFeatured_brew_color(String featured_brew_color) {
-		this.featured_brew_color = featured_brew_color;
-	}
-
-	public Typeface getFeatured_brew_typeface() {
-		return featured_brew_typeface;
-	}
-
-	public void setFeatured_brew_typeface(Typeface featured_brew_typeface) {
-		this.featured_brew_typeface = featured_brew_typeface;
-	}
-
-	public String getFeatured_brew_name_color() {
-		return featured_brew_name_color;
-	}
-
-	public void setFeatured_brew_name_color(String featured_brew_name_color) {
-		this.featured_brew_name_color = featured_brew_name_color;
-	}
-
-	public Typeface getFeatured_brew_name_typeface() {
-		return featured_brew_name_typeface;
-	}
-
-	public void setFeatured_brew_name_typeface(Typeface featured_brew_name_typeface) {
-		this.featured_brew_name_typeface = featured_brew_name_typeface;
-	}
-
-	public String getTaplist_color() {
-		return taplist_color;
-	}
-
-	public void setTaplist_color(String taplist_color) {
-		this.taplist_color = taplist_color;
-	}
-
-	public Typeface getTaplist_typeface() {
-		return taplist_typeface;
-	}
-
-	public void setTaplist_typeface(Typeface taplist_typeface) {
-		this.taplist_typeface = taplist_typeface;
-	}
-
-	public String getTaplist_name_color() {
-		return taplist_name_color;
-	}
-
-	public void setTaplist_name_color(String taplist_name_color) {
-		this.taplist_name_color = taplist_name_color;
-	}
-
-	public Typeface getTaplist_name_typeface() {
-		return taplist_name_typeface;
-	}
-
-	public void setTaplist_name_typeface(Typeface taplist_name_typeface) {
-		this.taplist_name_typeface = taplist_name_typeface;
 	}
 }

@@ -70,13 +70,15 @@ public class BrewDetailFragment extends Fragment {
         	TextView brew_name = (TextView) layout.findViewById(R.id.details_brew_name);
         	brew_name.setText(mBrew.getName());
         	brew_name.setTextColor(Color.parseColor(mPub.getTaplist_name_color()));
-        	brew_name.setTypeface(mPub.getTaplist_name_typeface());
+        	brew_name.setTypeface(mPub.getTaplist_name_typeface(activity));
+        	brew_name.setTextSize(mPub.getTaplist_name_details_size());
             
             // ABV
         	TextView abv = (TextView) layout.findViewById(R.id.details_brew_abv);
         	abv.setText(String.format("%.1f%% ABV", mBrew.getAbv()));
         	abv.setTextColor(Color.parseColor(mPub.getTaplist_color()));
-        	abv.setTypeface(mPub.getTaplist_typeface());
+        	abv.setTypeface(mPub.getTaplist_typeface(activity));
+        	abv.setTextSize(mPub.getTaplist_size());
             
             // Description
         	TextView desc = (TextView) layout.findViewById(R.id.details_brew_description);
@@ -92,31 +94,37 @@ public class BrewDetailFragment extends Fragment {
             TextView glass_header = (TextView) subheader.findViewById(R.id.details_Glass_header);
             glass_header.setTextColor(Color.parseColor(mPub.getSubheader_text_color()));
             glass_header.setTypeface(mPub.getSubheader_typeface(activity));
+            glass_header.setTextSize(mPub.getSubheader_size());
             
             TextView details_glass = (TextView) prices.findViewById(R.id.details_Glass);
             details_glass.setText(String.format("$%.2f", mBrew.getGlass()));
             details_glass.setTextColor(Color.parseColor(mPub.getTaplist_color()));
-            details_glass.setTypeface(mPub.getTaplist_typeface());
+            details_glass.setTypeface(mPub.getTaplist_typeface(activity));
+            details_glass.setTextSize(mPub.getTaplist_size());
             
             // Quart
             TextView quart_header = (TextView) subheader.findViewById(R.id.details_Quart_header);
             quart_header.setTextColor(Color.parseColor(mPub.getSubheader_text_color()));
             quart_header.setTypeface(mPub.getSubheader_typeface(activity));
+            quart_header.setTextSize(mPub.getSubheader_size());
             
             TextView details_quart = (TextView) prices.findViewById(R.id.details_Quart);
             details_quart.setText(String.format("$%.2f", mBrew.getQuart()));
             details_quart.setTextColor(Color.parseColor(mPub.getTaplist_color()));
-            details_quart.setTypeface(mPub.getTaplist_typeface());
+            details_quart.setTypeface(mPub.getTaplist_typeface(activity));
+            details_quart.setTextSize(mPub.getTaplist_size());
             
             // Growler
             TextView growler_header = (TextView) subheader.findViewById(R.id.details_Growler_header);
             growler_header.setTextColor(Color.parseColor(mPub.getSubheader_text_color()));
             growler_header.setTypeface(mPub.getSubheader_typeface(activity));
+            growler_header.setTextSize(mPub.getSubheader_size());
             
     		TextView details_growler = (TextView) prices.findViewById(R.id.details_Growler);
     		details_growler.setText(String.format("$%.2f", mBrew.getGrowler()));
             details_growler.setTextColor(Color.parseColor(mPub.getTaplist_color()));
-            details_growler.setTypeface(mPub.getTaplist_typeface());
+            details_growler.setTypeface(mPub.getTaplist_typeface(activity));
+            details_growler.setTextSize(mPub.getTaplist_size());
         }
 
         return rootView;

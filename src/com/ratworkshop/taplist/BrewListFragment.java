@@ -113,24 +113,38 @@ public class BrewListFragment extends ListFragment {
     	final Pub pub = PubContent.PUB_MAP.get(pubId);
     	mAdapter.clear();
     	List<Brew> taplist = pub.getTaplist();
+    	
+    	final Activity activity = getActivity();  
     	if (taplist != null) {
     		// Set the Styling for the Current TapList
     		mAdapter.setBackgroundColor(pub.getTaplist_background_color());
+    		
+    		// Details
+    		mAdapter.setListColor(pub.getTaplist_color());    		
+    		mAdapter.setListFontFace(pub.getTaplist_typeface(activity));
+    		mAdapter.setListSize(pub.getTaplist_size());
+    		
+    		// Featured
+    		mAdapter.setFeaturedFontFace(pub.getFeatured_brew_typeface(activity));
     		mAdapter.setFeaturedColor(pub.getFeatured_brew_color());
-    		mAdapter.setFeaturedNameColor(pub.getFeatured_brew_name_color());
-    		mAdapter.setListColor(pub.getTaplist_color());
+    		mAdapter.setFeaturedSize(pub.getFeatured_brew_size());
+    		
+    		// Name
+    		mAdapter.setListNameFontFace(pub.getTaplist_name_typeface(activity));
     		mAdapter.setListNameColor(pub.getTaplist_name_color());
-    		mAdapter.setFeaturedFontFace(pub.getFeatured_brew_typeface());
-    		mAdapter.setFeaturedNameFontFace(pub.getFeatured_brew_name_typeface());
-    		mAdapter.setListFontFace(pub.getTaplist_typeface());
-    		mAdapter.setListNameFontFace(pub.getTaplist_name_typeface());
+    		mAdapter.setListNameSize(pub.getTaplist_name_size());
+    		
+    		// Featured Name
+    		mAdapter.setFeaturedNameFontFace(pub.getFeatured_brew_name_typeface(activity));
+    		mAdapter.setFeaturedNameColor(pub.getFeatured_brew_name_color());
+    		mAdapter.setFeaturedNameSize(pub.getFeatured_brew_name_size());
+    		// TODO set Size
     		
     		// Add tap list
     		mAdapter.addAll(taplist);
     		mAdapter.notifyDataSetChanged();
     	}		
-    	
-    	final Activity activity = getActivity();    	
+    	  	
     	// Lazily Instantiate UI Components
     	if (header == null) {
     		list = (ListView) activity.findViewById(android.R.id.list);

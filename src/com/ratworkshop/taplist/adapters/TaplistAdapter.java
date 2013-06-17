@@ -30,6 +30,10 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 	private Typeface featuredNameFontFace = Typeface.DEFAULT_BOLD;
 	private Typeface listFontFace = Typeface.DEFAULT;
 	private Typeface listNameFontFace = Typeface.DEFAULT_BOLD;
+	private float listSize = 12.0f;
+	private float listNameSize = 12.0f;
+	private float featuredSize = 12.0f;
+	private float featuredNameSize = 12.0f;
 	
 	
 	static class BrewHolder
@@ -96,6 +100,13 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		holder.quartPrice.setTypeface(brew.isFeatured() ? featuredFontFace : listFontFace);
 		holder.growlerPrice.setTypeface(brew.isFeatured() ? featuredFontFace : listFontFace);
 		
+		// Set Sizes
+		holder.brewTitle.setTextSize(brew.isFeatured() ? featuredNameSize : listNameSize);
+		holder.brewAPV.setTextSize(brew.isFeatured() ? featuredSize : listSize);
+		holder.glassPrice.setTextSize(brew.isFeatured() ? featuredSize : listSize);
+		holder.quartPrice.setTextSize(brew.isFeatured() ? featuredSize : listSize);
+		holder.growlerPrice.setTextSize(brew.isFeatured() ? featuredSize: listSize);
+	
 		return row;
 	}
 
@@ -133,5 +144,21 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 
 	public void setListNameFontFace(Typeface listNameFontFace) {
 		this.listNameFontFace = listNameFontFace;
+	}
+
+	public void setListSize(float listSize) {
+		this.listSize = listSize;
+	}
+
+	public void setListNameSize(float listNameSize) {
+		this.listNameSize = listNameSize;
+	}
+
+	public void setFeaturedSize(float featuredSize) {
+		this.featuredSize = featuredSize;
+	}
+
+	public void setFeaturedNameSize(float featuredNameSize) {
+		this.featuredNameSize = featuredNameSize;
 	}
 }

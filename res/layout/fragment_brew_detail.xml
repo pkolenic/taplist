@@ -59,6 +59,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
                 android:text="@string/brew_name"
+                android:textSize="18sp"
                 android:textIsSelectable="false" >
             </TextView>
 

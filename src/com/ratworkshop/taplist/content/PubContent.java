@@ -12,7 +12,6 @@ import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.service.FontDownloader;
-import com.ratworkshop.taplist.utilities.TaplistTypeface;
 
 /**
  * Process the Pub JSON Data fetched from the Server
@@ -46,23 +45,20 @@ public class PubContent {
     	
     	
 		// Create the Pubs and TapLists
-		Pub pub = new Pub("1", "Brewforia - Meridian",
-				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
-				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context));
+		Pub pub = new Pub("1", "Brewforia - Meridian");
 		pub.setLogo("https://s3.amazonaws.com/ratworkshop_taplist/logos/1/pub-1-logo-135156678.png", context);
 		pub.setPubAddress( "101 Overland Rd", "Meridian", "ID", "83706");
 		pub.setPubTitle("The Beer Garden", "#ffe8db", "MONOSPACE", "BOLD", false, 16.0f);
 		pub.setPubSubtitle("Custom Beer", "#ffe8db", "MONOSPACE", "BOLD", false, 36.0f);
 		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
 		pub.setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
+		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
+		pub.setTaplistNameStyles("#e9dcc8", "DEFAULT", "BOLD", false, 12.0f, 18.0f);
+		pub.setFeaturedBrewNameStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
 		pub.setHeader_color("#000000");
 		pub.setSubheader_color("#000000");
 		pub.setTaplist_background_color("#000000");
-		// TODO - call these setter functions once they exist
-//		pub.setFeaturedBrew();
-//		pub.setTaplistStyles();
 		
     	PUB_MAP.put(pub.getId(), pub);
     	PUB_LIST.add(pub);
@@ -79,17 +75,17 @@ public class PubContent {
 		pub.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner, "PILSNER"));
     	
     	
-		pub = new Pub("2", "Brewforia - Eagle",
-				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
-				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context),
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context), 
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "BOLD", false, context));
+		pub = new Pub("2", "Brewforia - Eagle");
 		pub.setLogo("", context);
 		pub.setPubAddress("101 State St.", "Eagle", "ID", "83703");
 		pub.setPubTitle("Beer Market", "#ffe8db", "fonts/Hieronfreymious boschian.ttf", "", true, 20.f);
 		pub.setPubSubtitle("[taplist]", "#ffe8db", "spaceranger.ttf", "", true, 36.0f);
 		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
 		pub.setDescriptionStyles("#e9dcc8", "spaceranger.ttf", "", true, 16.0f);
+		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
+		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
+		pub.setTaplistNameStyles("#e9dcc8", "DEFAULT", "BOLD", false, 12.0f, 22.0f);
+		pub.setFeaturedBrewNameStyles("607d32", "DEFAULT", "BOLD", false, 12.0f);
 		pub.setHeader_color("#000000");
 		pub.setSubheader_color("#000000");
 		pub.setTaplist_background_color("#000000");
@@ -109,17 +105,17 @@ public class PubContent {
 		pub.addBrew(new Brew("9", "Payette Mutton Buster Brown Ale", "", 5.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
 		pub.addBrew(new Brew("10", "Seven Brides Lil's Pils", "", 5.6, 3.00, 5.00, 9.00, true, R.drawable.classic_pilsner, "PILSNER"));
 		
-		pub = new Pub("3", "Test",
-				 "#607d32", TaplistTypeface.create("DEFAULT", "BOLD", false, context), 
-				 "#99e521", TaplistTypeface.create("MONOSPACE", "BOLD", false, context),
-				 "#e9dcc8", TaplistTypeface.create("DEFAULT", "NORMAL", false, context),
-				 "#99e521", TaplistTypeface.create("DEFAULT", "BOLD", false, context));
+		pub = new Pub("3", "Test");
 		pub.setLogo("", context);
 		pub.setPubAddress("10 Meridian Rd", "Meridian", "ID", "83713");
 		pub.setPubTitle("Beer Market", "#FFFFFF", "SAN_SERIF", "ITALIC", false, 16.0f);
 		pub.setPubSubtitle("[taplist]", "#000000", "DEFAULT_BOLD", "NORMAL", false, 36.0f);
-		pub.setPubSubheader("#FF00FF", "MONOSPACE", "BOLD_ITALIC", false, 12.0f);
+		pub.setPubSubheader("#FF00FF", "MONOSPACE", "BOLD_ITALIC", false, 16.0f);
 		pub.setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
+		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 18.0f);
+		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
+		pub.setTaplistNameStyles("#99e521", "DEFAULT", "BOLD", false, 18.0f, 18.0f);
+		pub.setFeaturedBrewNameStyles("#99e521", "MONOSPACE", "BOLD", false, 9.0f);
 		pub.setHeader_color("#FF0000");
 		pub.setSubheader_color("#00FF00");
 		pub.setTaplist_background_color("#360707");
@@ -128,7 +124,7 @@ public class PubContent {
     	PUB_LIST.add(pub);
 
 		// Eagle Tap List
-		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
+		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "A great tasting Ale that makes any steak better.", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
 		pub.addBrew(new Brew("2", "Snake River Packed Porter", "", 6.6, 3.69, 7.39, 14.79, true, R.drawable.porter_stout, "PORTER"));
     }
 }
