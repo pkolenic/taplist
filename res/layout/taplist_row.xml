@@ -2,50 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="#000000"
     android:orientation="horizontal"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    android:background="#000000" >
+    android:paddingTop="5dp" >
 
     <TextView
         android:id="@+id/taplistAPV"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:gravity="center_vertical|left"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:text="@string/sample_abv"
         android:textColor="@color/SubHeader"
-        android:textIsSelectable="false"
         android:textSize="12sp"
         android:textStyle="normal" />
 
-    <ImageView
-        android:id="@+id/taplistIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:scaleType="fitCenter"
-        android:layout_marginRight="5dp"
-        android:contentDescription="@string/tap_list_image_desc"
-        android:gravity="center_vertical" />
-
-    <TextView
-        android:id="@+id/taplistTitle"
+    <LinearLayout
+        android:id="@+id/taplistNameIconWrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_vertical|left"
-        android:textColor="@color/SubHeader"
-        android:textIsSelectable="false"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/taplistIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="5dp"
+            android:contentDescription="@string/tap_list_image_desc"
+            android:gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/belgian_ale" />
+
+        <TextView
+            android:id="@+id/taplistTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:text="@string/sample_brew"
+            android:textColor="@color/SubHeader"
+            android:textIsSelectable="false"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/taplistGlass"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical|left"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/sample_glass_price"
         android:textColor="@color/SubHeader"
         android:textIsSelectable="false"
         android:textSize="12sp"
@@ -53,10 +62,12 @@
 
     <TextView
         android:id="@+id/taplistQuart"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical|left"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/sample_quart_price"
         android:textColor="@color/SubHeader"
         android:textIsSelectable="false"
         android:textSize="12sp"
@@ -64,10 +75,11 @@
 
     <TextView
         android:id="@+id/taplistGrowler"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical|left"
+        android:paddingRight="5dp"
+        android:text="@string/sample_growler_price"
         android:textColor="@color/SubHeader"
         android:textIsSelectable="false"
         android:textSize="12sp"

@@ -115,36 +115,7 @@ public class BrewListFragment extends ListFragment {
     	List<Brew> taplist = pub.getTaplist();
     	
     	final Activity activity = getActivity();  
-    	if (taplist != null) {
-    		// Set the Styling for the Current TapList
-    		mAdapter.setBackgroundColor(pub.getTaplist_background_color());
-    		
-    		// Details
-    		mAdapter.setListColor(pub.getTaplist_color());    		
-    		mAdapter.setListFontFace(pub.getTaplist_typeface(activity));
-    		mAdapter.setListSize(pub.getTaplist_size());
-    		
-    		// Featured
-    		mAdapter.setFeaturedFontFace(pub.getFeatured_brew_typeface(activity));
-    		mAdapter.setFeaturedColor(pub.getFeatured_brew_color());
-    		mAdapter.setFeaturedSize(pub.getFeatured_brew_size());
-    		
-    		// Name
-    		mAdapter.setListNameFontFace(pub.getTaplist_name_typeface(activity));
-    		mAdapter.setListNameColor(pub.getTaplist_name_color());
-    		mAdapter.setListNameSize(pub.getTaplist_name_size());
-    		
-    		// Featured Name
-    		mAdapter.setFeaturedNameFontFace(pub.getFeatured_brew_name_typeface(activity));
-    		mAdapter.setFeaturedNameColor(pub.getFeatured_brew_name_color());
-    		mAdapter.setFeaturedNameSize(pub.getFeatured_brew_name_size());
-    		// TODO set Size
-    		
-    		// Add tap list
-    		mAdapter.addAll(taplist);
-    		mAdapter.notifyDataSetChanged();
-    	}		
-    	  	
+    	
     	// Lazily Instantiate UI Components
     	if (header == null) {
     		list = (ListView) activity.findViewById(android.R.id.list);
@@ -158,7 +129,7 @@ public class BrewListFragment extends ListFragment {
     		quartLabel = (TextView) subheader.findViewById(R.id.taplistHeaderQuart);
     		growlerLabel = (TextView) subheader.findViewById(R.id.taplistHeaderGrowler);
     	}
-    	
+    	    	  	    	
 		// If Custom Logo set show it, otherwise show the Title and SubTitle		
 		if (pub.getLogo() != null) {
 		    String cacheDir = activity.getCacheDir().getPath();
@@ -208,6 +179,7 @@ public class BrewListFragment extends ListFragment {
 		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		abvLabel.setTypeface(pub.getSubheader_typeface(activity));
 		abvLabel.setTextSize(pub.getSubheader_size());
+		abvLabel.setWidth(glassLabel.getWidth());
 		
 		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		glassLabel.setTypeface(pub.getSubheader_typeface(activity));
@@ -216,10 +188,41 @@ public class BrewListFragment extends ListFragment {
 		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		quartLabel.setTypeface(pub.getSubheader_typeface(activity));
 		quartLabel.setTextSize(pub.getSubheader_size());
+		quartLabel.setWidth(glassLabel.getWidth() + 10);
 		
 		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
 		growlerLabel.setTypeface(pub.getSubheader_typeface(activity));
 		growlerLabel.setTextSize(pub.getSubheader_size());
+		
+		// Set Adapter Settings
+    	if (taplist != null) {
+    		// Set the Styling for the Current TapList
+    		mAdapter.setBackgroundColor(pub.getTaplist_background_color());
+    		
+    		// Details
+    		mAdapter.setListColor(pub.getTaplist_color());    		
+    		mAdapter.setListFontFace(pub.getTaplist_typeface(activity));
+    		mAdapter.setListSize(pub.getTaplist_size());
+    		
+    		// Featured
+    		mAdapter.setFeaturedFontFace(pub.getFeatured_brew_typeface(activity));
+    		mAdapter.setFeaturedColor(pub.getFeatured_brew_color());
+    		mAdapter.setFeaturedSize(pub.getFeatured_brew_size());
+    		
+    		// Name
+    		mAdapter.setListNameFontFace(pub.getTaplist_name_typeface(activity));
+    		mAdapter.setListNameColor(pub.getTaplist_name_color());
+    		mAdapter.setListNameSize(pub.getTaplist_name_size());
+    		
+    		// Featured Name
+    		mAdapter.setFeaturedNameFontFace(pub.getFeatured_brew_name_typeface(activity));
+    		mAdapter.setFeaturedNameColor(pub.getFeatured_brew_name_color());
+    		mAdapter.setFeaturedNameSize(pub.getFeatured_brew_name_size());
+    		
+    		// Add tap list
+    		mAdapter.addAll(taplist);
+    		mAdapter.notifyDataSetChanged();
+    	}
     }
     
     @Override

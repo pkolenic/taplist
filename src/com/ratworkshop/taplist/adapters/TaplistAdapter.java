@@ -2,9 +2,6 @@ package com.ratworkshop.taplist.adapters;
 
 import java.util.List;
 
-import com.ratworkshop.taplist.R;
-import com.ratworkshop.taplist.models.Brew;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,7 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
+
+import com.ratworkshop.taplist.R;
+import com.ratworkshop.taplist.models.Brew;
 
 public class TaplistAdapter extends ArrayAdapter<Brew> {
 
@@ -34,7 +36,7 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 	private float listNameSize = 12.0f;
 	private float featuredSize = 12.0f;
 	private float featuredNameSize = 12.0f;
-	
+	private SubheaderHolder subheader;
 	
 	static class BrewHolder
 	{
@@ -44,6 +46,15 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		TextView glassPrice;
 		TextView quartPrice;
 		TextView growlerPrice;
+	}
+	
+	static class SubheaderHolder
+	{
+		TextView brewAPV;
+		TextView glassPrice;
+		TextView quartPrice;
+		TextView growlerPrice;
+		Space titleSpace;
 	}
 	
 	public TaplistAdapter(Context context, int layoutResourceId, List<Brew> items) {
@@ -58,6 +69,17 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		
 		View row = convertView;
 		BrewHolder holder = null;
+		
+		if (subheader == null) {
+			subheader = new SubheaderHolder();
+			final Activity activity = (Activity) context;
+			LinearLayout layout = (LinearLayout) activity.findViewById(R.id.taplistSubheader);
+			subheader.brewAPV = (TextView) layout.findViewById(R.id.taplistHeaderABV);
+			subheader.glassPrice = (TextView) layout.findViewById(R.id.taplistHeaderGlass);
+			subheader.quartPrice = (TextView) layout.findViewById(R.id.taplistHeaderQuart);
+			subheader.growlerPrice = (TextView) layout.findViewById(R.id.taplistHeaderGrowler);
+			subheader.titleSpace = (Space) layout.findViewById(R.id.taplistHeaderSpace);
+		}
 		
 		if (row == null) {
 			LayoutInflater inflater = ((Activity)context).getLayoutInflater();
@@ -100,16 +122,29 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		holder.quartPrice.setTypeface(brew.isFeatured() ? featuredFontFace : listFontFace);
 		holder.growlerPrice.setTypeface(brew.isFeatured() ? featuredFontFace : listFontFace);
 		
-		// Set Sizes
+		// Set Text Sizes
 		holder.brewTitle.setTextSize(brew.isFeatured() ? featuredNameSize : listNameSize);
 		holder.brewAPV.setTextSize(brew.isFeatured() ? featuredSize : listSize);
 		holder.glassPrice.setTextSize(brew.isFeatured() ? featuredSize : listSize);
 		holder.quartPrice.setTextSize(brew.isFeatured() ? featuredSize : listSize);
 		holder.growlerPrice.setTextSize(brew.isFeatured() ? featuredSize: listSize);
+		
+		// Set Sizes
+		holder.brewAPV.setWidth(subheader.brewAPV.getWidth());
+		holder.glassPrice.setWidth(subheader.glassPrice.getWidth());
+		holder.quartPrice.setWidth(subheader.quartPrice.getWidth());
+		holder.growlerPrice.setWidth(subheader.growlerPrice.getWidth());
+		
+		// Hide Glass Icon if not enough room
+		if (subheader.titleSpace.getWidth() < 100) {
+			holder.imgIcon.setVisibility(View.GONE);
+		} else {
+			holder.imgIcon.setVisibility(View.VISIBLE);
+		}
 	
 		return row;
 	}
-
+	
 	public void setBackgroundColor(int color) {
 		backgroundColor = color;
 	}

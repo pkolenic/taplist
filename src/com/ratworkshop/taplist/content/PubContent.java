@@ -74,7 +74,6 @@ public class PubContent {
 		pub.addBrew(new Brew("18", "Payette Outlaw IPA", "", 6.2, 3.49, 6.99, 14.99, false, R.drawable.belgian_ale, "IPA"));
 		pub.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner, "PILSNER"));
     	
-    	
 		pub = new Pub("2", "Brewforia - Eagle");
 		pub.setLogo("", context);
 		pub.setPubAddress("101 State St.", "Eagle", "ID", "83703");
@@ -85,7 +84,7 @@ public class PubContent {
 		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
 		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
 		pub.setTaplistNameStyles("#e9dcc8", "DEFAULT", "BOLD", false, 12.0f, 22.0f);
-		pub.setFeaturedBrewNameStyles("607d32", "DEFAULT", "BOLD", false, 12.0f);
+		pub.setFeaturedBrewNameStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
 		pub.setHeader_color("#000000");
 		pub.setSubheader_color("#000000");
 		pub.setTaplist_background_color("#000000");

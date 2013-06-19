@@ -16,6 +16,14 @@
     <string name="brew_abv">Brew ABV</string>
     <string name="featured">FEATURED</string>
     
+    <!-- Sample Values -->
+    <string name="sample_abv">8.3%</string>
+    <string name="sample_brew">Firestone Walker Wookey Jack Rye Black IPA</string>
+    <string name="sample_desc">A great tasting Ale that makes any steak better.</string>
+    <string name="sample_glass_price">$4.49</string>
+    <string name="sample_quart_price">$8.99</string>
+    <string name="sample_growler_price">$17.99</string>
+    
     <!-- KEYS  -->
     <string name="ARG_PUB_ID">com.ratworkshop.taplist.pub_id</string>
     <string name="ARG_BREW_ID">com.ratworkshop.taplist.brew_id</string>

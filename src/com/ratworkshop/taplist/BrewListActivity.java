@@ -78,13 +78,14 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         			initial = false;
         			Pub pub = PubContent.PUB_MAP.get(pubId);
         			int pos = PubContent.PUB_LIST.indexOf(pub);
-        			mOnNavigationListener.onNavigationItemSelected(pos, 0);
+        			actionBar.setSelectedNavigationItem(pos);
+        			return mOnNavigationListener.onNavigationItemSelected(pos, pos);
         		} else {
         			// Set the Pub Id on the BrewListFragment and Redraw the List
         			pubId = PubContent.PUB_LIST.get(position).getId();
                 	((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position).getId());
+            	    return true;
         		}
-        	    return true;
         	  }
         };
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);	
