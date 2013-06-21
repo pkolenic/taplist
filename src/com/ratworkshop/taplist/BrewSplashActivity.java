@@ -22,6 +22,8 @@ import com.ratworkshop.taplist.content.PubContent;
 
 public class BrewSplashActivity extends Activity {
 
+//	private static final int HOUR = 1000 * 60 * 60;
+	private static final int HOUR = 10;		// 10 Seconds should be good for testing
 	private static final String DEBUG_TAG = "BrewSplash";
 	private static final String LAST_UPDATE = "com.ratworkshop.taplist.lastupdate";
 	private Context mContext;
@@ -36,7 +38,7 @@ public class BrewSplashActivity extends Activity {
 		long then = sharedPref.getLong(LAST_UPDATE, now);
 		
 		// If its been longer than an hour or now equals then (the app hasn't been used)
-		if (now - then > (1000 * 60 * 60) || now == then || PubContent.isEmpty()) {
+		if (now - then > HOUR || now == then || PubContent.isEmpty()) {
 			PubContent.clearContent();
 			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -69,6 +71,9 @@ public class BrewSplashActivity extends Activity {
 			} catch (IOException e) {
 				PubContent.parsePubLists(null, mContext);
 				return "Unable to retrieve web page. URL may be invalid.";
+			} catch (Exception e) {
+				PubContent.parsePubLists(null, mContext);
+				return "Unable to retrieve web page. URL may be invalid.";
 			}
 
 		}
@@ -88,7 +93,6 @@ public class BrewSplashActivity extends Activity {
 		char[] buffer = new char[stream.available()];
 		reader.read(buffer);
 		String string = new String(buffer);
-		Log.d(DEBUG_TAG, string);
 
 		PubContent.parsePubLists(string, mContext);
 		
@@ -99,16 +103,17 @@ public class BrewSplashActivity extends Activity {
 		editor.commit();
 	}
 
-	private String getPubList() throws IOException {
+	private String getPubList() throws Exception {
 		InputStream is = null;
 
 		try {
-			URL url = new URL("http://www.google.com");
+			URL url = new URL("http://10.0.2.2:3000/api/pubs");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000 /* milliseconds */);
 			conn.setConnectTimeout(15000 /* milliseconds */);
 			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
+			conn.addRequestProperty("Authorization", "Token token=pizza");
+			conn.addRequestProperty("Accept", "application/ratworkshop.taplist.v1");
 			// Starts the query
 			conn.connect();
 			int response = conn.getResponseCode();

@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
-import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.service.FontDownloader;
@@ -18,7 +22,7 @@ import com.ratworkshop.taplist.service.FontDownloader;
  * <p>
  */
 public class PubContent {
-	
+	private static final String DEBUG_TAG = "PubContent";
     public static Map<String, Pub> PUB_MAP = new HashMap<String, Pub>();
     public static List<Pub> PUB_LIST = new ArrayList<Pub>();
     
@@ -38,92 +42,185 @@ public class PubContent {
     		return;
     	}
     	
-    	// Download Custom Fonts
-		Intent intent = new Intent(context, FontDownloader.class);
-		intent.putExtra(FontDownloader.FONT_URL, "https://s3.amazonaws.com/ratworkshop_taplist/fonts/spaceranger.ttf");
-		context.startService(intent);	
+    	// Parse the JSON Response
+    	JSONObject jObject;
     	
+    	try {
+    		jObject = new JSONObject(pubListings);
+    	} catch (JSONException e) {
+    		try {
+				JSONArray jArray = new JSONArray(pubListings);
+				jObject = jArray.getJSONObject(0);
+			} catch (JSONException e1) {
+				Log.d(DEBUG_TAG, String.format("Unable to parse pubListings: %s", e.getLocalizedMessage()));
+				e.printStackTrace();
+				
+	    		Pub pub = new Pub("No Pubs Available");
+	    		PUB_MAP.put("0", pub);
+	    		return;
+			}
+    	}
     	
-		// Create the Pubs and TapLists
-		Pub pub = new Pub("1", "Brewforia - Meridian");
-		pub.setLogo("https://s3.amazonaws.com/ratworkshop_taplist/logos/1/pub-1-logo-135156678.png", context);
-		pub.setPubAddress( "101 Overland Rd", "Meridian", "ID", "83706");
-		pub.setPubTitle("The Beer Garden", "#ffe8db", "MONOSPACE", "BOLD", false, 16.0f);
-		pub.setPubSubtitle("Custom Beer", "#ffe8db", "MONOSPACE", "BOLD", false, 36.0f);
-		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
-		pub.setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
-		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
-		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
-		pub.setTaplistNameStyles("#e9dcc8", "DEFAULT", "BOLD", false, 12.0f, 18.0f);
-		pub.setFeaturedBrewNameStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
-		pub.setHeader_color("#000000");
-		pub.setSubheader_color("#000000");
-		pub.setTaplist_background_color("#000000");
-		
-    	PUB_MAP.put(pub.getId(), pub);
-    	PUB_LIST.add(pub);
-    	
-		// Meridian Tap List
-    	pub.addBrew(new Brew("11", "Pike Kilt Lifter Ruby Ale", "A great tasting Ale that makes any steak better.", 6.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
-    	pub.addBrew(new Brew("12", "Crooked Fence Pineapple IPA", "The pineapple flavor gives this IPA a tropical feel.", 6.8, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
-    	pub.addBrew(new Brew("13", "Grand Teton Lost Continent Double IPA", "A great IPA for any season of the year.", 8.0, 3.69, 8.49, 16.99, false, R.drawable.belgian_ale, "IPA"));
-    	pub.addBrew(new Brew("14", "Hoegaarden Belgian Wit", "", 4.9, 3.49, 6.99, 13.99, true, R.drawable.wheat_beer, "WHEAT"));
-    	pub.addBrew(new Brew("15", "New Belgium/Red Rock Paardebloem Ale", "", 9.0, 3.99, 9.29, 18.49, false, R.drawable.craft_pub, "ALE"));
-		pub.addBrew(new Brew("16", "Salmon River Buzz Buzz Coffer Porter", "", 5.6, 3.69, 7.49, 14.99, false, R.drawable.porter_stout, "PORTER"));
-		pub.addBrew(new Brew("17", "North Coast Class of '88 Collaboration Barleywine", "", 10.0, 6.99, 22.39, 44.69, false, R.drawable.classic_pilsner, "PILSNER"));
-		pub.addBrew(new Brew("18", "Payette Outlaw IPA", "", 6.2, 3.49, 6.99, 14.99, false, R.drawable.belgian_ale, "IPA"));
-		pub.addBrew(new Brew("19", "Mendocino Peregrine Pilsner", "", 5.6, 3.00, 5.00, 9.00, false, R.drawable.classic_pilsner, "PILSNER"));
-    	
-		pub = new Pub("2", "Brewforia - Eagle");
-		pub.setLogo("", context);
-		pub.setPubAddress("101 State St.", "Eagle", "ID", "83703");
-		pub.setPubTitle("Beer Market", "#ffe8db", "fonts/Hieronfreymious boschian.ttf", "", true, 20.f);
-		pub.setPubSubtitle("[taplist]", "#ffe8db", "spaceranger.ttf", "", true, 36.0f);
-		pub.setPubSubheader("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
-		pub.setDescriptionStyles("#e9dcc8", "spaceranger.ttf", "", true, 16.0f);
-		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 12.0f);
-		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
-		pub.setTaplistNameStyles("#e9dcc8", "DEFAULT", "BOLD", false, 12.0f, 22.0f);
-		pub.setFeaturedBrewNameStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
-		pub.setHeader_color("#000000");
-		pub.setSubheader_color("#000000");
-		pub.setTaplist_background_color("#000000");
-		
-    	PUB_MAP.put(pub.getId(), pub);
-    	PUB_LIST.add(pub);
-
-		// Eagle Tap List
-		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "A great tasting Ale that makes any steak better.", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
-		pub.addBrew(new Brew("2", "Mendocino Black Hawk Stout", "", 5.6, 3.49, 6.99, 13.99, false, R.drawable.porter_stout, "STOUT"));
-		pub.addBrew(new Brew("3", "Selkirk Abbey Saint Stephen Saison", "", 5.6, 3.69, 6.99, 13.99, false, R.drawable.wheat_beer, "WHEAT"));
-		pub.addBrew(new Brew("4", "Crooked Fence Devil's Pick IPA", "", 7.0, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
-		pub.addBrew(new Brew("5", "Green Flash Imperial Red Rye IPA", "", 8.5, 4.59, 10.59, 21.09, false, R.drawable.belgian_ale, "IPA"));
-		pub.addBrew(new Brew("6", "Snake River Packed Porter", "", 6.6, 3.69, 7.39, 14.79, false, R.drawable.porter_stout, "PORTER"));
-		pub.addBrew(new Brew("7", "Goodlife Mt Rescue Pale Ale", "", 5.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
-		pub.addBrew(new Brew("8", "Sockeye Winterfest Winter IPA", "", 6.8, 3.49, 6.99, 13.99, false, R.drawable.belgian_ale, "IPA"));
-		pub.addBrew(new Brew("9", "Payette Mutton Buster Brown Ale", "", 5.5, 3.49, 6.99, 13.99, false, R.drawable.craft_pub, "ALE"));
-		pub.addBrew(new Brew("10", "Seven Brides Lil's Pils", "", 5.6, 3.00, 5.00, 9.00, true, R.drawable.classic_pilsner, "PILSNER"));
-		
-		pub = new Pub("3", "Test");
-		pub.setLogo("", context);
-		pub.setPubAddress("10 Meridian Rd", "Meridian", "ID", "83713");
-		pub.setPubTitle("Beer Market", "#FFFFFF", "SAN_SERIF", "ITALIC", false, 16.0f);
-		pub.setPubSubtitle("[taplist]", "#000000", "DEFAULT_BOLD", "NORMAL", false, 36.0f);
-		pub.setPubSubheader("#FF00FF", "MONOSPACE", "BOLD_ITALIC", false, 16.0f);
-		pub.setDescriptionStyles("#e9dcc8", "DEFAULT", "BOLD", false, 16.0f);
-		pub.setTaplistStyles("#e9dcc8", "DEFAULT", "NORMAL", false, 18.0f);
-		pub.setFeaturedBrewStyles("#607d32", "DEFAULT", "BOLD", false, 12.0f);
-		pub.setTaplistNameStyles("#99e521", "DEFAULT", "BOLD", false, 18.0f, 18.0f);
-		pub.setFeaturedBrewNameStyles("#99e521", "MONOSPACE", "BOLD", false, 9.0f);
-		pub.setHeader_color("#FF0000");
-		pub.setSubheader_color("#00FF00");
-		pub.setTaplist_background_color("#360707");
-
-    	PUB_MAP.put(pub.getId(), pub);
-    	PUB_LIST.add(pub);
-
-		// Eagle Tap List
-		pub.addBrew(new Brew("1","Firestone Walker Wookey Jack Rye Black IPA", "A great tasting Ale that makes any steak better.", 8.3, 4.49, 8.99, 17.99, false, R.drawable.belgian_ale, "IPA"));
-		pub.addBrew(new Brew("2", "Snake River Packed Porter", "", 6.6, 3.69, 7.39, 14.79, true, R.drawable.porter_stout, "PORTER"));
+    	// Check that the API is valid for this version of the APP
+    	try {
+			boolean upgrade = jObject.getBoolean("requireUpgrade");
+			if (upgrade) {
+				// TODO - Need to start new Activity that tells user to upgrade App
+				Log.d(DEBUG_TAG, "APP doesn't support this API");
+				
+	    		Pub pub = new Pub("No Pubs Available");
+	    		PUB_MAP.put("0", pub);
+	    		return;
+			}
+			
+			
+			JSONArray fonts = jObject.getJSONArray("fonts");
+			for (int i=0; i < fonts.length(); i++)
+			{
+				String font = fonts.getString(i);
+				Intent intent = new Intent(context, FontDownloader.class);
+				intent.putExtra(FontDownloader.FONT_URL, font);
+				context.startService(intent);
+			}
+			
+			JSONArray pubs = jObject.getJSONArray("pubs");
+			for (int i=0; i < pubs.length(); i++)
+			{
+				JSONObject pubData = pubs.getJSONObject(i);
+				
+				// Create Pub
+				String pubId = pubData.getString("id");
+				String pubName = pubData.getString("name");
+				Pub pub = new Pub(pubId, pubName);
+				
+				String pubLogo = pubData.getString("logo");
+				pub.setLogo(pubLogo, context);
+				
+				JSONObject addressData = pubData.getJSONObject("address");
+				String address = addressData.getString("address");
+				String city = addressData.getString("city");
+				String state = addressData.getString("state");
+				String zip = addressData.getString("zip");
+				pub.setPubAddress(address, city, state, zip);
+				
+				// Title
+				String title = pubData.getString("title");
+				JSONObject fontData = pubData.getJSONObject("title_font");
+				String color = fontData.getString("text_color");
+				String font = fontData.getString("font");
+				String style = fontData.getString("style");
+				boolean custom = fontData.getBoolean("custom");
+				float list_size = (float) fontData.getDouble("list_size");
+				float details_size = (float) fontData.getDouble("details_size");
+				pub.setPubTitle(title, color, font, style, custom, list_size);
+				
+				// SubTitle
+				title = pubData.getString("subtitle");
+				fontData = pubData.getJSONObject("subtitle_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setPubSubtitle(title, color, font, style, custom, list_size);
+				
+				// Description
+				fontData = pubData.getJSONObject("description_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setDescriptionStyles(color, font, style, custom, list_size);
+				
+				// SubHeader
+				fontData = pubData.getJSONObject("subheader_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setPubSubheader(color, font, style, custom, list_size);
+				
+				// Tap List Styles
+				fontData = pubData.getJSONObject("taplist_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setTaplistStyles(color, font, style, custom, list_size);
+				
+				// Featured Brew Styles
+				fontData = pubData.getJSONObject("featured_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setFeaturedBrewStyles(color, font, style, custom, list_size);
+				
+				// Tap List Name Styles
+				fontData = pubData.getJSONObject("brew_name_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setTaplistNameStyles(color, font, style, custom, list_size, details_size);
+				
+				// Featured Brew Name Styles
+				fontData = pubData.getJSONObject("featured_brew_name_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setFeaturedBrewNameStyles(color, font, style, custom, list_size);
+				
+				// Background Colors
+				JSONObject colors = pubData.getJSONObject("backgrounds");
+				pub.setHeader_color(colors.getString("header"));
+				pub.setSubheader_color(colors.getString("subheader"));
+				pub.setTaplist_background_color(colors.getString("taplist"));
+				
+				// Brews
+				JSONArray brews = pubData.getJSONArray("brews");
+				for (int j=0; j < brews.length(); j++)
+				{
+					JSONObject brew = brews.getJSONObject(j);
+					
+					String brewId = brew.getString("id");
+					String brewName = brew.getString("name");
+					String brewDesc = brew.getString("desc");
+					float abv = (float) brew.getDouble("abv");
+					float glass = (float) brew.getDouble("glass");
+					float quart = (float) brew.getDouble("quart");
+					float growler = (float) brew.getDouble("growler");
+					boolean featured = brew.getBoolean("featured");
+					String image = brew.getString("image");
+					String type = brew.getString("type");
+					
+					pub.addBrew(new Brew(brewId, brewName, brewDesc, abv, glass, quart, growler, featured, image, type));
+				}
+				
+				PUB_MAP.put(pubId, pub);
+				PUB_LIST.add(pub);
+			}			
+		} catch (JSONException e) {
+			e.printStackTrace();
+    		Pub pub = new Pub("No Pubs Available");
+    		PUB_MAP.put("0", pub);
+    		return;
+		}
     }
+    
+    
 }

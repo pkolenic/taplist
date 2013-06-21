@@ -1,4 +1,7 @@
 package com.ratworkshop.taplist.models;
+
+import com.ratworkshop.taplist.R;
+
 public class Brew {
 	
 	public enum BrewType {
@@ -15,8 +18,9 @@ public class Brew {
 	private boolean isFeatured;
 	private BrewType brewtype;
 	private int icon;
+	private String custom_icon;
 
-	public Brew(String id, String name, String description, double d, double e, double f, double g, boolean isFeatured, int icon, String type) {
+	public Brew(String id, String name, String description, double d, double e, double f, double g, boolean isFeatured, String custom_icon, String type) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -25,7 +29,7 @@ public class Brew {
 		this.quart = f;
 		this.growler = g;
 		this.isFeatured = isFeatured;
-		this.icon = icon;
+		this.custom_icon = custom_icon;
 		setBrewtype(type);
 	}
 
@@ -100,6 +104,10 @@ public class Brew {
 	public void setIcon(int icon) {
 		this.icon = icon;
 	}
+	
+	public String getCustomIcon() {
+		return custom_icon;
+	}
 
 	public BrewType getBrewtype() {
 		return brewtype;
@@ -107,6 +115,36 @@ public class Brew {
 
 	public void setBrewtype(String brewtype) {
 		this.brewtype = BrewType.valueOf(brewtype);
+		
+		switch(this.brewtype) {
+			case IPA:
+				icon = R.drawable.belgian_ale;
+				break;
+			case PORTER:
+				icon = R.drawable.porter_stout;
+				break;
+			case STOUT:
+				icon = R.drawable.porter_stout;
+				break;
+			case PILSNER: 
+				icon = R.drawable.classic_pilsner;
+				break;
+			case CIDAR:
+				icon = R.drawable.classic_pilsner;
+				break;
+			case ALE:
+				icon = R.drawable.craft_pub;
+				break;
+			case AMBER:
+				icon = R.drawable.craft_pub;
+				break;
+			case WHEAT:
+				icon = R.drawable.wheat_beer;
+				break;
+			default:
+				icon = R.drawable.craft_pub;
+				break;
+		}
 	}
 
 	@Override
