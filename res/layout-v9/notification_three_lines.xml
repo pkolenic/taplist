@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:paddingTop="0px"
+    android:layout_alignParentTop="true"
+    android:layout_height="fill_parent">
+    
+  <ImageView android:id="@+id/notification_icon"
+      android:contentDescription="@string/notification_icon_desc"
+      android:src="@drawable/notification"
+      android:layout_marginRight="10dp"
+      android:layout_marginLeft="0dp"
+      android:layout_width="65dip"
+      android:layout_height="65dip" />
+      
+  <TextView android:id="@+id/notification_subject"
+      android:text="@string/notification_Subject"
+      android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent.Title"
+      android:layout_alignTop="@+id/notification_icon"
+      android:layout_toRightOf="@+id/notification_icon"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:maxLines="1" android:visibility="gone"/>
+
+  <TextView android:id="@+id/notification_message"
+      android:textSize="14sp"
+      android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"
+      android:text="@string/notification_Message"
+      android:maxLines="3"
+      android:layout_marginTop="3dip"
+      android:layout_marginRight="6dp"
+      android:layout_marginLeft="2dp"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@+id/notification_icon"
+      android:layout_width="wrap_content" />
+
+</RelativeLayout>

@@ -1,17 +1,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/brew_list_wrapper"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-<include layout="@layout/taplist_header"/>
-<fragment
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/brew_list"
-    android:name="com.ratworkshop.taplist.BrewListFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    class="com.ratworkshop.taplist.BrewListFragment"
-    tools:context=".BrewListActivity"
-    tools:layout="@android:layout/list_content" />
+
+    <include layout="@layout/taplist_header" />
+
+    <fragment
+        android:id="@+id/brew_list"
+        android:name="com.ratworkshop.taplist.BrewListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.ratworkshop.taplist.BrewListFragment"
+        tools:context=".BrewListActivity"
+        tools:layout="@android:layout/list_content" />
 
 </LinearLayout>

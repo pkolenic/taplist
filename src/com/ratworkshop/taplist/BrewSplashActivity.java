@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.ratworkshop.taplist.content.PubContent;
+import com.urbanairship.push.PushManager;
 
 public class BrewSplashActivity extends Activity {
 
@@ -27,12 +28,15 @@ public class BrewSplashActivity extends Activity {
 	private static final String DEBUG_TAG = "BrewSplash";
 	private static final String LAST_UPDATE = "com.ratworkshop.taplist.lastupdate";
 	private Context mContext;
+	private String pubId;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		mContext = this;
 
+		pubId = getIntent().getStringExtra(getString(R.string.ARG_PUB_ID));
+		
 		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 		long now = System.currentTimeMillis();
 		long then = sharedPref.getLong(LAST_UPDATE, now);
@@ -55,7 +59,15 @@ public class BrewSplashActivity extends Activity {
 	}
 
 	protected void closeSplash() {
+		PushManager.enablePush();
+		String apid = PushManager.shared().getAPID();
+		Log.d(DEBUG_TAG, "###=### App APID: " + apid);
+		
 		Intent listIntent = new Intent(this, BrewListActivity.class);
+		if (pubId != null) {
+			listIntent.putExtra(getString(R.string.ARG_PUB_ID), pubId);
+		}
+			
 		startActivity(listIntent);
 	}
 
@@ -107,7 +119,7 @@ public class BrewSplashActivity extends Activity {
 		InputStream is = null;
 
 		try {
-			URL url = new URL("http://10.0.2.2:3000/api/pubs");
+			URL url = new URL(getString(R.string.get_all_pubs_url));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000 /* milliseconds */);
 			conn.setConnectTimeout(15000 /* milliseconds */);

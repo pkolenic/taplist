@@ -5,6 +5,7 @@ import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.ratworkshop.taplist.adapters.SelectionSpinnerAdapter;
 import com.ratworkshop.taplist.content.PubContent;
@@ -38,6 +39,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
     private String pubId;
     private OnNavigationListener mOnNavigationListener;
     private SelectionSpinnerAdapter mSpinnerAdapter;
+	private static final String DEBUG_TAG = "BrewListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,19 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         	  }
         };
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);	
+        
+        // Check if Intent included a pubID
+        String pubId = getIntent().getStringExtra(getString(R.string.ARG_PUB_ID));
+        if (pubId != null) {
+        	try {
+        	Pub pub = PubContent.PUB_MAP.get(pubId);
+        	int pos = PubContent.PUB_LIST.indexOf(pub);
+        	actionBar.setSelectedNavigationItem(pos);
+			mOnNavigationListener.onNavigationItemSelected(pos, pos);
+        	} catch (Exception e) {
+        		Log.d(DEBUG_TAG, e.getLocalizedMessage());
+			}
+        }
     }
     
     /**

@@ -11,10 +11,41 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- REQUIRED PERMISSIONS (for Urban Airship GCM) -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- This app has permission to register with GCM and receive message -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.ratworkshop.taplist.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.ratworkshop.taplist.permission.C2D_MESSAGE" />
+    <!-- The two elements above ensure that only this application can receive the messages and registration result -->
+    <!-- END Urban Airship Required Permissions -->
+
+
+    <!-- OPTIONAL Urban Airship Settings -->
+    <!-- REQUIRED FOR LOCATION -->
+    <!-- Use ACCESS_COARSE_LOCATION if GPS access is not necessary -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+
+
+    <!-- OPTIONAL - This permission is only necessary if your app has multiple processes -->
+    <!-- <uses-permission android:name="android.permission.BROADCAST_STICKY" /> -->
+    <!-- END OPTIONAL Urban Airship Settings -->
+
     <application
         android:allowBackup="true"
+        android:name="com.ratworkshop.taplist.TaplistApplication" 
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
 
         <!-- android:theme="@style/AppTheme" -->
         <activity
@@ -30,9 +61,9 @@
         </activity>
         <activity
             android:name="com.ratworkshop.taplist.BrewListActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/TaplistActivtyTheme" 
-            android:configChanges="orientation|screenSize">
+            android:theme="@style/TaplistActivtyTheme" >
         </activity>
         <activity
             android:name="com.ratworkshop.taplist.BrewDetailActivity"
@@ -43,13 +74,58 @@
                 android:value=".BrewListActivity" />
         </activity>
 
+        <!-- REQUIRED for Urban Airship GCM -->
+        <receiver android:name="com.urbanairship.CoreReceiver" />
+        <receiver
+            android:name="com.urbanairship.push.GCMPushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <!-- MODIFICATION REQUIRED - Use your package name as the category -->
+                <category android:name="com.ratworkshop.taplist" />
+            </intent-filter>
+            <!-- REQUIRED for detecting when the application is upgraded so it can request a new GCM ID -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.urbanairship.push.PushService"
+            android:label="Push Notification Service" />
+        <service
+            android:name="com.urbanairship.analytics.EventService"
+            android:label="Event Service" />
+
+        <!-- This is required for persisting preferences related to push and location -->
+        <!-- Use your package name + ".urbanairship.provider" in the android:authorities -->
+        <provider
+            android:name="com.urbanairship.UrbanAirshipProvider"
+            android:authorities="com.ratworkshop.taplist.urbanairship.provider"
+            android:exported="false"
+            android:multiprocess="true" />
+        <!-- END OF REQUIRED ITEMS -->
+
+
+        <!-- OPTIONAL (for segments support) -->
+        <service
+            android:name="com.urbanairship.location.LocationService"
+            android:label="Segments Service" />
+
+        <!-- OPTIONAL, if you want to receive push, push opened and registration completed intents -->
+        <!-- Replace the receiver below with your package and class name -->
+        <receiver android:name="com.ratworkshop.taplist.IntentReceiver" />
+
         <service
             android:name="com.ratworkshop.taplist.service.ImageDownloader"
             android:exported="false" >
         </service>
-        <service 
-			 android:name="com.ratworkshop.taplist.service.FontDownloader"
-             android:exported="false" >
+        <service
+            android:name="com.ratworkshop.taplist.service.FontDownloader"
+            android:exported="false" >
         </service>
     </application>
 

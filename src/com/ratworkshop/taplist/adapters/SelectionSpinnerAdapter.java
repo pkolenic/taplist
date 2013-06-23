@@ -2,9 +2,6 @@ package com.ratworkshop.taplist.adapters;
 
 import java.util.List;
 
-import com.ratworkshop.taplist.R;
-import com.ratworkshop.taplist.models.Pub;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.ratworkshop.taplist.R;
+import com.ratworkshop.taplist.models.Pub;
 
 public class SelectionSpinnerAdapter extends ArrayAdapter<Pub> {
 
@@ -42,7 +42,15 @@ public class SelectionSpinnerAdapter extends ArrayAdapter<Pub> {
 		int resourceId = dropdownViewResourceId < 0 ? layoutResourceId : dropdownViewResourceId;
 		View row = inflater.inflate(resourceId, parent, false);
 		TextView label = (TextView)row.findViewById(R.id.text1);
+		
+		// Set the Pub Name
 		label.setText(publist.get(position).getName());
+		
+		// Style the Pub Name
+		label.setTextColor(publist.get(position).getPubList_font_color());
+		label.setTypeface(publist.get(position).getPublist_typeface(context));
+		label.setTextSize(publist.get(position).getPublist_font_size());
+		label.setBackgroundColor(publist.get(position).getPublist_background_color());
 		return row;
 	}
 	

@@ -63,10 +63,19 @@ public class Pub {
 	private String description_style;
 	private boolean description_font_custom;	
 	
+	/* Publist */
+	private int publist_text_color;
+	private float publist_font_size;
+	private Typeface publist_typeface;
+	private String publist_font;
+	private String publist_style;
+	private boolean publist_font_custom;
+	
 	/* Background Colors */
 	private int header_color;
 	private int subheader_color;
 	private int taplist_background_color;
+	private int publist_background_color;
 	
 	/* Tap List Details */
 	private String taplist_color;
@@ -131,6 +140,7 @@ public class Pub {
 		setHeader_color("#000000");
 		setSubheader_color("#000000");
 		setTaplist_background_color("#000000");
+		setPublist_background_color("#000000");
 	}
 
 	/**
@@ -280,6 +290,22 @@ public class Pub {
 		this.featured_brew_name_font = featured_brew_name_font;
 		this.featured_brew_name_style = featured_brew_name_style;
 		this.featured_brew_name_font_custom = featured_brew_name_font_custom;
+	}
+	
+	/**
+	 * Sets the Styles for the Pub Name in the dropdown list
+	 * @param color
+	 * @param font
+	 * @param style
+	 * @param custom
+	 * @param size
+	 */
+	public void setPublistStyles(String color, String font, String style, boolean custom, float size) {
+		publist_text_color = Color.parseColor(color);
+		publist_font_size = size;
+		publist_font = font;
+		publist_style = style;
+		publist_font_custom = custom;
 	}
 	
 	/**
@@ -458,6 +484,22 @@ public class Pub {
 		return featured_brew_name_size;
 	}
 	
+	/* PUBLIST GETTERS */
+	public int getPubList_font_color() {
+		return publist_text_color;
+	}
+	
+	public Typeface getPublist_typeface(Context context) {
+		if (publist_typeface == null) {
+			publist_typeface = TaplistTypeface.create(publist_font, publist_style, publist_font_custom, context);
+		}
+		return publist_typeface;
+	}
+	
+	public float getPublist_font_size() {
+		return publist_font_size;
+	}
+	
 	/* LOGO */
 	private void downloadLogo(String name, String path, Context context) {
     	if (logo != null) {
@@ -536,6 +578,14 @@ public class Pub {
 
 	public void setTaplist_background_color(String taplist_background_color) {
 		this.taplist_background_color = Color.parseColor(taplist_background_color);
+	}
+	
+	public int getPublist_background_color() {
+		return publist_background_color;
+	}
+	
+	public void setPublist_background_color(String color) {
+		this.publist_background_color = Color.parseColor(color);
 	}
 	
 	/* GETTERS */

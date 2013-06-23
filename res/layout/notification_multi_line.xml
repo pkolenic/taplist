@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+      A sample notification layout that
+      fits 160 chars on a Nexus S display in
+      portrait orientation
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical"
+    android:paddingTop="2dip" >
+
+    <ImageView
+        android:id="@+id/notification_icon"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="4dip"
+        android:contentDescription="@string/notification_icon_desc"
+        android:src="@drawable/notification" />
+
+    <!--
+  The custom notification requires a subject field.
+  To accommodate multiple lines in this layout this
+  field is hidden. Visibility is set to gone.
+    -->
+
+    <TextView
+        android:id="@+id/notification_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/notification_icon"
+        android:layout_toRightOf="@+id/notification_icon"
+        android:maxLines="1"
+        android:text="@string/notification_Subject"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!--
+  The message block. Standard text size is 14dip
+  but is reduced here to maximize content.
+    -->
+
+    <TextView
+        android:id="@+id/notification_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginTop="0dip"
+        android:layout_toRightOf="@+id/notification_icon"
+        android:maxLines="4"
+        android:text="@string/notification_Message"
+        android:textColor="#FF000000"
+        android:textSize="12sp" />
+
+</RelativeLayout>

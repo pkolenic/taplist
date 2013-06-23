@@ -185,11 +185,22 @@ public class PubContent {
 				details_size = (float) fontData.getDouble("details_size");
 				pub.setFeaturedBrewNameStyles(color, font, style, custom, list_size);
 				
+				// PubList Name Styles
+				fontData = pubData.getJSONObject("name_font");
+				color = fontData.getString("text_color");
+				font = fontData.getString("font");
+				style = fontData.getString("style");
+				custom = fontData.getBoolean("custom");
+				list_size = (float) fontData.getDouble("list_size");
+				details_size = (float) fontData.getDouble("details_size");
+				pub.setPublistStyles(color, font, style, custom, list_size);
+				
 				// Background Colors
 				JSONObject colors = pubData.getJSONObject("backgrounds");
 				pub.setHeader_color(colors.getString("header"));
 				pub.setSubheader_color(colors.getString("subheader"));
 				pub.setTaplist_background_color(colors.getString("taplist"));
+				pub.setPublist_background_color(colors.getString("publist"));
 				
 				// Brews
 				JSONArray brews = pubData.getJSONArray("brews");

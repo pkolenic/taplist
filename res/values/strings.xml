@@ -16,6 +16,11 @@
     <string name="brew_abv">Brew ABV</string>
     <string name="featured">FEATURED</string>
     
+    <!--  Notifications -->
+    <string name="notification_Subject">Subject</string>
+    <string name="notification_Message">Message</string>
+    <string name="notification_icon_desc">Notification Icon</string>
+    
     <!-- Sample Values -->
     <string name="sample_abv">8.3%</string>
     <string name="sample_brew">Firestone Walker Wookey Jack Rye Black IPA</string>
