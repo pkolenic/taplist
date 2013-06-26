@@ -26,16 +26,14 @@ public class PubContent {
     public static Map<String, Pub> PUB_MAP = new HashMap<String, Pub>();
     public static List<Pub> PUB_LIST = new ArrayList<Pub>();
     
-    public static void clearContent() {
-    	PUB_MAP = new HashMap<String, Pub>();
-    	PUB_LIST = new ArrayList<Pub>();
-    }
-    
     public static boolean isEmpty() {
     	return PUB_LIST.size() == 0;
     }
     
     public static void parsePubLists(String pubListings, Context context) {
+    	PUB_MAP = new HashMap<String, Pub>();
+    	PUB_LIST = new ArrayList<Pub>();
+    	
     	if (pubListings == null) {
     		Pub pub = new Pub("No Pubs Available");
     		PUB_MAP.put("0", pub);

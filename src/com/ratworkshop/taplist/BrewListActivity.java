@@ -2,14 +2,24 @@ package com.ratworkshop.taplist;
 
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.ratworkshop.taplist.adapters.SelectionSpinnerAdapter;
 import com.ratworkshop.taplist.content.PubContent;
+import com.ratworkshop.taplist.interfaces.PublistDelegate;
 import com.ratworkshop.taplist.models.Pub;
+import com.ratworkshop.taplist.tasks.FetchPublists;
+import com.ratworkshop.taplist.utilities.Constants;
 
 
 /**
@@ -28,7 +38,7 @@ import com.ratworkshop.taplist.models.Pub;
  * {@link BrewListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class BrewListActivity extends FragmentActivity implements BrewListFragment.Callbacks {
+public class BrewListActivity extends FragmentActivity implements BrewListFragment.Callbacks, PublistDelegate {
 	
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -93,7 +103,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);	
         
         // Check if Intent included a pubID
-        String pubId = getIntent().getStringExtra(getString(R.string.ARG_PUB_ID));
+        pubId = getIntent().getStringExtra(getString(R.string.ARG_PUB_ID));
         if (pubId != null) {
         	try {
         	Pub pub = PubContent.PUB_MAP.get(pubId);
@@ -134,4 +144,61 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
             startActivity(detailIntent);
         }
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.options_menu, menu);
+    	return true;
+    }
+    
+    public void showSettings(MenuItem menuItem) {
+    	Intent settingsIntent = new Intent(this, BrewSettingsActivity.class);
+    	settingsIntent.putExtra(getString(R.string.ARG_PUB_ID), pubId);
+    	startActivity(settingsIntent);
+    }
+    
+    @Override
+    public void onStart() {
+    	super.onStart();
+    	
+        // Check if its time to reload data
+		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.taplist_preference), Context.MODE_PRIVATE); 
+		long now = System.currentTimeMillis();
+		long then = sharedPref.getLong(getString(R.string.LAST_UPDATE), now);
+		
+		// If its been longer than an hour or now equals then (the app hasn't been used)
+		if (now - then > Constants.HOUR) {
+			Log.d(DEBUG_TAG, "Begining Request for updated Pub List");
+			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+			if (networkInfo != null && networkInfo.isConnected()) {
+				// TODO Show Spinner View
+				
+				new FetchPublists(this).execute();
+			}	
+		}    	
+    }
+    
+	@Override
+	public void onPublistUpdated() {
+		Log.d(DEBUG_TAG, "Finished Request for updated Pub List");
+		// TODO Hide Spinner View
+		
+		// Rest List Adapter
+		mSpinnerAdapter.clear();
+		mSpinnerAdapter.addAll(PubContent.PUB_LIST);
+		mSpinnerAdapter.notifyDataSetChanged();
+		
+        if (pubId != null) {
+        	try {
+        	Pub pub = PubContent.PUB_MAP.get(pubId);
+        	int pos = PubContent.PUB_LIST.indexOf(pub);
+        	getActionBar().setSelectedNavigationItem(pos);
+			mOnNavigationListener.onNavigationItemSelected(pos, pos);
+        	} catch (Exception e) {
+        		Log.d(DEBUG_TAG, e.getLocalizedMessage());
+			}
+        }
+	}
 }
