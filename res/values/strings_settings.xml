@@ -1,0 +1,10 @@
+<resources>
+    <string name="title_activity_brew_settings">Settings</string>
+    <string name="push_preference_category_title">Push Preferences</string>
+    <string name="quiet_time_enable_preference_title">Enable Quiet Time</string>
+    <string name="quiet_time_start_preference_title">Quiet Time Start</string>
+    <string name="quiet_time_end_preference_title">Quiet Time End</string>
+    <string name="push_preference_title">Enable Push</string>
+    <string name="sound_preference_title">Enable Sound</string>
+    <string name="vibrate_preference_title">Enable Vibrate</string>
+</resources>

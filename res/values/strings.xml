@@ -18,6 +18,7 @@
     
     <!--  Preference File Name -->
     <string name="taplist_preference">taplist_preference</string>
+    <string name="push_perference_header_title">Push Preferences</string>
     
     <!--  Settings -->
     <string name="settings">Settings</string>

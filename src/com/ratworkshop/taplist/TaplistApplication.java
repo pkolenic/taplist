@@ -36,6 +36,5 @@ public class TaplistApplication extends Application {
 
         PushManager.shared().setNotificationBuilder(nb);
         PushManager.shared().setIntentReceiver(IntentReceiver.class);
-
     }
 }
