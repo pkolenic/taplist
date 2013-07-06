@@ -29,10 +29,19 @@ public class PubContent {
     public static boolean isEmpty() {
     	return PUB_LIST.size() == 0;
     }
-    
-    public static void parsePubLists(String pubListings, Context context) {
+            
+    public static void clearPubList() {
     	PUB_MAP = new HashMap<String, Pub>();
     	PUB_LIST = new ArrayList<Pub>();
+    }
+    
+    public static void addPub(Pub pub) {
+		PUB_MAP.put(pub.getId(), pub);
+		PUB_LIST.add(pub);
+    }
+    
+    public static void parsePubLists(String pubListings, Context context) {
+    	clearPubList();
     	
     	if (pubListings == null) {
     		Pub pub = new Pub("No Pubs Available");
@@ -63,7 +72,7 @@ public class PubContent {
     	try {
 			boolean upgrade = jObject.getBoolean("requireUpgrade");
 			if (upgrade) {
-				// TODO - Need to start new Activity that tells user to upgrade App
+				// TODO - Need to start new Activity that tells user to upgrade Application
 				Log.d(DEBUG_TAG, "APP doesn't support this API");
 				
 	    		Pub pub = new Pub("No Pubs Available");
@@ -94,6 +103,7 @@ public class PubContent {
 				String pubLogo = pubData.getString("logo");
 				pub.setLogo(pubLogo, context);
 				
+				// Address
 				JSONObject addressData = pubData.getJSONObject("address");
 				String address = addressData.getString("address");
 				String city = addressData.getString("city");
@@ -220,9 +230,8 @@ public class PubContent {
 					pub.addBrew(new Brew(brewId, brewName, brewDesc, abv, glass, quart, growler, featured, image, type));
 				}
 				
-				PUB_MAP.put(pubId, pub);
-				PUB_LIST.add(pub);
-			}			
+				addPub(pub);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
     		Pub pub = new Pub("No Pubs Available");

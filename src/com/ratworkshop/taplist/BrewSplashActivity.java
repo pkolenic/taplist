@@ -12,6 +12,7 @@ import android.util.Log;
 import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.interfaces.PublistDelegate;
 import com.ratworkshop.taplist.tasks.FetchPublists;
+import com.ratworkshop.taplist.tasks.LoadPublist;
 import com.ratworkshop.taplist.utilities.Constants;
 import com.urbanairship.push.PushManager;
 
@@ -36,9 +37,7 @@ public class BrewSplashActivity extends Activity implements PublistDelegate {
 			if (networkInfo != null && networkInfo.isConnected()) {
 				new FetchPublists(this).execute();
 			} else {
-				// TODO need to load from local DB
-				PubContent.parsePubLists(null, this);
-				closeSplash();
+				new LoadPublist(this).execute();
 			}	
 		} else {
 			closeSplash();

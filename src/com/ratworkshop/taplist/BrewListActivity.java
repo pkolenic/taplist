@@ -19,6 +19,7 @@ import com.ratworkshop.taplist.content.PubContent;
 import com.ratworkshop.taplist.interfaces.PublistDelegate;
 import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.tasks.FetchPublists;
+import com.ratworkshop.taplist.tasks.LoadPublist;
 import com.ratworkshop.taplist.utilities.Constants;
 
 
@@ -114,6 +115,8 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         		Log.d(DEBUG_TAG, e.getLocalizedMessage());
 			}
         }
+        
+        // TODO - Show a dialog to turn notifications on - included note about changing in Settings
     }
     
     /**
@@ -167,16 +170,18 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 		long now = System.currentTimeMillis();
 		long then = sharedPref.getLong(getString(R.string.LAST_UPDATE), now);
 		
-		// If its been longer than an hour or now equals then (the app hasn't been used)
+		// If its been longer than an hour or now equals then (the application hasn't been used)
 		if (now - then > Constants.HOUR) {
+			// TODO Show Spinner View
+			
 			Log.d(DEBUG_TAG, "Begining Request for updated Pub List");
 			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-			if (networkInfo != null && networkInfo.isConnected()) {
-				// TODO Show Spinner View
-				
+			if (networkInfo != null && networkInfo.isConnected()) {	
 				new FetchPublists(this).execute();
-			}	
+			} else {
+				new LoadPublist(this).execute();
+			}
 		}    	
     }
     

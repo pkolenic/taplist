@@ -115,7 +115,7 @@ public class Brew {
 
 	public void setBrewtype(String brewtype) {
 		this.brewtype = BrewType.valueOf(brewtype);
-		
+
 		switch(this.brewtype) {
 			case IPA:
 				icon = R.drawable.belgian_ale;

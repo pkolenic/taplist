@@ -9,7 +9,6 @@ import java.util.List;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -168,29 +167,29 @@ public class BrewListFragment extends ListFragment {
 		subheader.setBackgroundColor(pub.getSubheader_color());
 		
 		// Set Text Colors
-		title.setTextColor(Color.parseColor(pub.getTitle_color()));
+		title.setTextColor(pub.getTitle_color());
 		title.setTypeface(pub.getTitle_typeface(activity));
 		title.setTextSize(pub.getTitle_size());
 		
-		subtitle.setTextColor(Color.parseColor(pub.getSubtitle_color()));
+		subtitle.setTextColor(pub.getSubtitle_color());
 		subtitle.setTypeface(pub.getSubtitle_typeface(activity));
 		subtitle.setTextSize(pub.getSubtitle_size());
 		
-		abvLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		abvLabel.setTextColor(pub.getSubheader_text_color());
 		abvLabel.setTypeface(pub.getSubheader_typeface(activity));
 		abvLabel.setTextSize(pub.getSubheader_size());
 		abvLabel.setWidth(glassLabel.getWidth());
 		
-		glassLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		glassLabel.setTextColor(pub.getSubheader_text_color());
 		glassLabel.setTypeface(pub.getSubheader_typeface(activity));
 		glassLabel.setTextSize(pub.getSubheader_size());
 		
-		quartLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		quartLabel.setTextColor(pub.getSubheader_text_color());
 		quartLabel.setTypeface(pub.getSubheader_typeface(activity));
 		quartLabel.setTextSize(pub.getSubheader_size());
 		quartLabel.setWidth(glassLabel.getWidth() + 10);
 		
-		growlerLabel.setTextColor(Color.parseColor(pub.getSubheader_text_color()));
+		growlerLabel.setTextColor(pub.getSubheader_text_color());
 		growlerLabel.setTypeface(pub.getSubheader_typeface(activity));
 		growlerLabel.setTextSize(pub.getSubheader_size());
 		

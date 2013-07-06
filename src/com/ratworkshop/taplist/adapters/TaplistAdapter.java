@@ -149,20 +149,20 @@ public class TaplistAdapter extends ArrayAdapter<Brew> {
 		backgroundColor = color;
 	}
 	
-	public void setFeaturedColor(String color) {
-		featuredColor = Color.parseColor(color);
+	public void setFeaturedColor(int color) {
+		featuredColor = color;
 	}
 	
-	public void setFeaturedNameColor(String color) {
-		featuredNameColor = Color.parseColor(color);
+	public void setFeaturedNameColor(int color) {
+		featuredNameColor = color;
 	}
 	
-	public void setListColor(String color) {
-		listColor = Color.parseColor(color);
+	public void setListColor(int color) {
+		listColor = color;
 	}
 	
-	public void setListNameColor(String color) {
-		listNameColor = Color.parseColor(color);
+	public void setListNameColor(int color) {
+		listNameColor = color;
 	}
 
 	public void setFeaturedFontFace(Typeface featuredFontFace) {

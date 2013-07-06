@@ -10,6 +10,7 @@ import java.net.URL;
 
 import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.content.PubContent;
+import com.ratworkshop.taplist.database.DBHelper;
 import com.ratworkshop.taplist.interfaces.PublistDelegate;
 
 import android.app.Activity;
@@ -48,7 +49,13 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		Log.d(DEBUG_TAG, "Fetch PubList is: " + result);
-		delegate.onPublistUpdated();
+		if (result.equals("Success")) {
+			delegate.onPublistUpdated();
+	    	DBHelper.savePubList((Activity) delegate);
+		} else {
+			DBHelper.loadPubList((Activity) delegate);
+			delegate.onPublistUpdated();
+		}
 	}
 
 	private void parsePubLists(InputStream stream) throws IOException,
@@ -79,7 +86,7 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 					R.string.get_all_pubs_url));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000 /* milliseconds */);
-			conn.setConnectTimeout(15000 /* milliseconds */);
+			conn.setConnectTimeout(7000 /* milliseconds */);
 			conn.setRequestMethod("GET");
 			conn.addRequestProperty("Authorization", "Token token=pizza");
 			conn.addRequestProperty("Accept",
@@ -93,7 +100,7 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 			parsePubLists(is);
 			return "Success";
 
-			// Makes sure that the InputStream is closed after the app is
+			// Makes sure that the InputStream is closed after the application is
 			// finished using it.
 		} finally {
 			if (is != null) {
