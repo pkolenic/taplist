@@ -5,6 +5,7 @@ import android.app.ActionBar.OnNavigationListener;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.ratworkshop.taplist.adapters.SelectionSpinnerAdapter;
 import com.ratworkshop.taplist.content.PubContent;
@@ -45,12 +48,15 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+	private boolean isRefreshing = false;
 	private boolean initial = true;
     private boolean mTwoPane;
     private String pubId;
     private OnNavigationListener mOnNavigationListener;
     private SelectionSpinnerAdapter mSpinnerAdapter;
 	private static final String DEBUG_TAG = "BrewListActivity";
+	private AnimationDrawable loadingSpinner;
+	private ImageView spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +122,13 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 			}
         }
         
+        // Setup Loading Spinner
+        spinner = (ImageView) findViewById(R.id.loading_spinner);
+        spinner.setBackgroundResource(R.drawable.loading_spinner);
+        loadingSpinner = (AnimationDrawable) spinner.getBackground();
+        
         // TODO - Show a dialog to turn notifications on - included note about changing in Settings
+        
     }
     
     /**
@@ -161,6 +173,24 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
     	startActivity(settingsIntent);
     }
     
+    
+    public synchronized void refreshTaplist(MenuItem menuItem) {
+    	if (!isRefreshing) {
+    		isRefreshing = true;
+	    	// Show Spinner View
+    		spinner.setVisibility(View.VISIBLE);
+    		loadingSpinner.start();
+    		
+			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+			if (networkInfo != null && networkInfo.isConnected()) {
+				new FetchPublists(this).execute();
+			} else {
+				new LoadPublist(this).execute();
+			}
+    	}
+    }
+    
     @Override
     public void onStart() {
     	super.onStart();
@@ -172,7 +202,10 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 		
 		// If its been longer than an hour or now equals then (the application hasn't been used)
 		if (now - then > Constants.HOUR) {
-			// TODO Show Spinner View
+			isRefreshing = true;
+			// Show Spinner View
+			spinner.setVisibility(View.VISIBLE);
+			loadingSpinner.start();
 			
 			Log.d(DEBUG_TAG, "Begining Request for updated Pub List");
 			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -188,9 +221,11 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 	@Override
 	public void onPublistUpdated() {
 		Log.d(DEBUG_TAG, "Finished Request for updated Pub List");
-		// TODO Hide Spinner View
+		// Hide Spinner View
+		loadingSpinner.stop();
+		spinner.setVisibility(View.GONE);
 		
-		// Rest List Adapter
+		// Reset List Adapter
 		mSpinnerAdapter.clear();
 		mSpinnerAdapter.addAll(PubContent.PUB_LIST);
 		mSpinnerAdapter.notifyDataSetChanged();
@@ -204,6 +239,16 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         	} catch (Exception e) {
         		Log.d(DEBUG_TAG, e.getLocalizedMessage());
 			}
+        } else {
+        	// Set to the first item
+        	if (PubContent.PUB_LIST.isEmpty()) {
+        		Log.d(DEBUG_TAG, "Something went wrong and the Publist is empty!!!");
+        		((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).clearList();
+        	} else {
+            	getActionBar().setSelectedNavigationItem(0);
+    			mOnNavigationListener.onNavigationItemSelected(0, 0);
+        	}
         }
+        isRefreshing = false;
 	}
 }

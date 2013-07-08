@@ -9,12 +9,15 @@
     <string name="tap_list_header_glass">GLASS</string>
     <string name="tap_list_header_quart">QT</string>
     <string name="tap_list_header_growler">GROWLER</string>
-    <string name="tap_list_image_desc">Brew Glass Type</string>
-    <string name="activty_header_image_desc">Taplist</string>
     <string name="pub_selection">Select a Pub</string>
     <string name="brew_name">Brew Name</string>
     <string name="brew_abv">Brew ABV</string>
     <string name="featured">FEATURED</string>
+    
+    <!-- Image Descriptions -->
+    <string name="tap_list_image_desc">Brew Glass Type</string>
+    <string name="activty_header_image_desc">Taplist</string>
+    <string name="loading_spinner">Loading Spinner</string>
     
     <!--  Preference File Name -->
     <string name="taplist_preference">taplist_preference</string>
@@ -50,4 +53,5 @@
     
     <!-- MENU TITLES -->
     <string name="SETTINGS_MENU">Settings</string>
+    <string name="REFRESH_MENU">Refresh Pubs</string>
 </resources>

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.ratworkshop.taplist.database.DBHelper;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.service.FontDownloader;
@@ -62,8 +63,13 @@ public class PubContent {
 				Log.d(DEBUG_TAG, String.format("Unable to parse pubListings: %s", e.getLocalizedMessage()));
 				e.printStackTrace();
 				
-	    		Pub pub = new Pub("No Pubs Available");
-	    		PUB_MAP.put("0", pub);
+				// Try reading from DB
+				DBHelper.loadPubList(context);
+				
+				if (PUB_LIST.isEmpty()) {
+					Pub pub = new Pub("No Pubs Available");
+	    			PUB_MAP.put("0", pub);
+				}
 	    		return;
 			}
     	}

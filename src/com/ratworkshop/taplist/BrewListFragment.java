@@ -104,6 +104,14 @@ public class BrewListFragment extends ListFragment {
     }
 
     /**
+     * Should only be called if the pub list is empty, usually as a result of a bug in this application or in the json data from the server
+     */
+    public void clearList() {
+    	mAdapter.clear();
+		mAdapter.notifyDataSetChanged();
+    }
+    
+    /**
      * Updates the adapter
      * @param pubId
      */

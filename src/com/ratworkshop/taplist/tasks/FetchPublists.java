@@ -58,17 +58,16 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 		}
 	}
 
-	private void parsePubLists(InputStream stream) throws IOException,
-			UnsupportedEncodingException {
+	private void parsePubLists(InputStream stream) throws IOException, UnsupportedEncodingException {
 		Reader reader = null;
 		reader = new InputStreamReader(stream, "UTF-8");
 		char[] buffer = new char[stream.available()];
 		reader.read(buffer);
 		String string = new String(buffer);
-
+		reader.close();
+		
 		Activity activity = (Activity) delegate;
 		PubContent.parsePubLists(string, activity);
-		reader.close();
 
 		// Set the Last Update
 		String preferenceFile = activity.getString(R.string.taplist_preference);
