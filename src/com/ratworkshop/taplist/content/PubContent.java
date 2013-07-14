@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.ratworkshop.taplist.R;
 import com.ratworkshop.taplist.database.DBHelper;
 import com.ratworkshop.taplist.models.Brew;
 import com.ratworkshop.taplist.models.Pub;
@@ -45,7 +46,7 @@ public class PubContent {
     	clearPubList();
     	
     	if (pubListings == null) {
-    		Pub pub = new Pub("No Pubs Available");
+    		Pub pub = new Pub(context.getString(R.string.no_pubs));
     		PUB_MAP.put("0", pub);
     		return;
     	}

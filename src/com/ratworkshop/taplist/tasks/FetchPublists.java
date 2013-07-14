@@ -85,7 +85,7 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 					R.string.get_all_pubs_url));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setReadTimeout(10000 /* milliseconds */);
-			conn.setConnectTimeout(7000 /* milliseconds */);
+			conn.setConnectTimeout(2500 /* milliseconds */);
 			conn.setRequestMethod("GET");
 			conn.addRequestProperty("Authorization", "Token token=pizza");
 			conn.addRequestProperty("Accept",

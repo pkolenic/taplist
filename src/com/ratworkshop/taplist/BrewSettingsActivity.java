@@ -9,7 +9,6 @@ import android.view.MenuItem;
 
 import com.urbanairship.UAirship;
 import com.urbanairship.preference.UAPreferenceAdapter;
-import com.urbanairship.push.PushManager;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -90,9 +89,10 @@ public class BrewSettingsActivity extends PreferenceActivity {
             super.onStop();
             // Apply any changed UA preferences from the preference screen
             preferenceAdapter.applyUrbanAirshipPreferences();
-            if (PushManager.shared().getPreferences().isPushEnabled()) {
-            	PushManager.shared().setAlias("FRED");
-            }
+            // - Left in to show where Tags will need to be set (refer to UrbanAirship Sample App on how to create tags)
+//            if (PushManager.shared().getPreferences().isPushEnabled()) {
+//            	PushManager.shared().setAlias("FRED");
+//            }
         }
     }
 }

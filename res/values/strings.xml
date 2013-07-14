@@ -13,6 +13,13 @@
     <string name="brew_name">Brew Name</string>
     <string name="brew_abv">Brew ABV</string>
     <string name="featured">FEATURED</string>
+    <string name="empty_taplist">There is currently no data avaiable, this might be due to your device not being within range of a wifi or celluar signal.  Try refreshing the tap list once you have resolved the networking issue.</string>
+    <string name="no_pubs">No Pubs Available</string>
+    
+    <!-- Notifications Dialog -->
+    <string name="notification_dialog_prompt">Do you want to allow this application to receive push notifications?</string>
+    <string name="notification_dialog_yes">YES</string>
+    <string name="notification_dialog_no">NO</string>
     
     <!-- Image Descriptions -->
     <string name="tap_list_image_desc">Brew Glass Type</string>
@@ -50,6 +57,7 @@
     <string name="ARG_PUB_ID">com.ratworkshop.taplist.pub_id</string>
     <string name="ARG_BREW_ID">com.ratworkshop.taplist.brew_id</string>
     <string name="LAST_UPDATE">com.ratworkshop.taplist.lastupdate</string>
+    <string name="PUSH_NOTIFICATION_SHOWN">com.ratworkshop.taplist.push_notification_shown</string>
     
     <!-- MENU TITLES -->
     <string name="SETTINGS_MENU">Settings</string>

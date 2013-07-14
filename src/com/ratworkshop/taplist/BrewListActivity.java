@@ -72,9 +72,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((BrewListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.brew_list))
-                    .setActivateOnItemClick(true);
+            ((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).setActivateOnItemClick(true);
         }
 
         final ActionBar actionBar = getActionBar();        
@@ -93,17 +91,21 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         	  @Override
         	  public boolean onNavigationItemSelected(int position, long itemId) {
         		pubId = getIntent().getStringExtra(getString(R.string.ARG_PUB_ID));
-        		if (initial && pubId != null) {
-        			initial = false;
-        			Pub pub = PubContent.PUB_MAP.get(pubId);
-        			int pos = PubContent.PUB_LIST.indexOf(pub);
-        			actionBar.setSelectedNavigationItem(pos);
-        			return mOnNavigationListener.onNavigationItemSelected(pos, pos);
+        		if (!PubContent.PUB_LIST.isEmpty()) {
+	        		if (initial && pubId != null) {
+	        			initial = false;
+	        			Pub pub = PubContent.PUB_MAP.get(pubId);
+	        			int pos = PubContent.PUB_LIST.indexOf(pub);
+	        			actionBar.setSelectedNavigationItem(pos);
+	        			return mOnNavigationListener.onNavigationItemSelected(pos, pos);
+	        		} else {
+	        			// Set the Pub Id on the BrewListFragment and Redraw the List
+	        			pubId = PubContent.PUB_LIST.get(position).getId();
+	                	((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position).getId());
+	            	    return true;
+	        		}
         		} else {
-        			// Set the Pub Id on the BrewListFragment and Redraw the List
-        			pubId = PubContent.PUB_LIST.get(position).getId();
-                	((BrewListFragment) getSupportFragmentManager().findFragmentById(R.id.brew_list)).onPubSelected(PubContent.PUB_LIST.get(position).getId());
-            	    return true;
+        			return false;
         		}
         	  }
         };
@@ -127,8 +129,21 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         spinner.setBackgroundResource(R.drawable.loading_spinner);
         loadingSpinner = (AnimationDrawable) spinner.getBackground();
         
-        // TODO - Show a dialog to turn notifications on - included note about changing in Settings
+        // Check that we have content
+        if (PubContent.PUB_LIST.size() == 0 || (PubContent.PUB_LIST.size() == 1 && PubContent.PUB_LIST.get(0).equals(getString(R.string.no_pubs)))) {
+        	// Hide the Header and List and Show the Empty Publist Message
+        	findViewById(R.id.emptyTaplist).setVisibility(View.VISIBLE);
+        	findViewById(R.id.brew_list).setVisibility(View.GONE);
+        	findViewById(R.id.taplistHeader).setVisibility(View.GONE);
+        }
         
+        // Show a dialog to turn notifications on - included note about changing in Settings
+		SharedPreferences sharedPref = getSharedPreferences(getString(R.string.taplist_preference), Context.MODE_PRIVATE); 
+		boolean prompt_shown = sharedPref.getBoolean(getString(R.string.PUSH_NOTIFICATION_SHOWN), false);
+		if (!prompt_shown) {
+			PushNotificationDialogFragment dialog = new PushNotificationDialogFragment();
+			dialog.show(getSupportFragmentManager(), "PushNotificationDialogFragment");
+		}
     }
     
     /**
@@ -250,5 +265,17 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
         	}
         }
         isRefreshing = false;
+        
+        // Check that we have content
+        if (PubContent.PUB_LIST.size() == 0 || (PubContent.PUB_LIST.size() == 1 && PubContent.PUB_LIST.get(0).equals(getString(R.string.no_pubs)))) {
+        	// Hide the Header and List and Show the Empty Publist Message
+        	findViewById(R.id.emptyTaplist).setVisibility(View.VISIBLE);
+        	findViewById(R.id.brew_list).setVisibility(View.GONE);
+        	findViewById(R.id.taplistHeader).setVisibility(View.GONE);
+        } else {
+        	findViewById(R.id.emptyTaplist).setVisibility(View.GONE);
+        	findViewById(R.id.brew_list).setVisibility(View.VISIBLE);
+        	findViewById(R.id.taplistHeader).setVisibility(View.VISIBLE);
+        }
 	}
 }
