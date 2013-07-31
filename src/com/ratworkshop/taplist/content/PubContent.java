@@ -57,11 +57,12 @@ public class PubContent {
     	try {
     		jObject = new JSONObject(pubListings);
     	} catch (JSONException e) {
+    		Log.d(DEBUG_TAG, String.format("Unable to parse pubListings as Object: %s", e.getLocalizedMessage()));
     		try {
 				JSONArray jArray = new JSONArray(pubListings);
 				jObject = jArray.getJSONObject(0);
 			} catch (JSONException e1) {
-				Log.d(DEBUG_TAG, String.format("Unable to parse pubListings: %s", e.getLocalizedMessage()));
+				Log.d(DEBUG_TAG, String.format("Unable to parse pubListings as Array: %s", e1.getLocalizedMessage()));
 				e.printStackTrace();
 				
 				// Try reading from DB

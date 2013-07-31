@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  STAGGING URLS -->
-    <string name="get_all_pubs_url">http://afternoon-island-1071.herokuapp.com/api/pubs</string>
+    <string name="get_all_pubs_url">https://afternoon-island-1071.herokuapp.com/api/pubs</string>
     
     <!--  PRODUCTION URLS -->
     <!-- <string name="get_all_pubs">http://afternoon-island-1071.herokuapp.com/api/pubs</string> -->

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -24,6 +22,7 @@ import com.ratworkshop.taplist.models.Pub;
 import com.ratworkshop.taplist.tasks.FetchPublists;
 import com.ratworkshop.taplist.tasks.LoadPublist;
 import com.ratworkshop.taplist.utilities.Constants;
+import com.ratworkshop.taplist.utilities.Utilities;
 
 
 /**
@@ -196,9 +195,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
     		spinner.setVisibility(View.VISIBLE);
     		loadingSpinner.start();
     		
-			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-			if (networkInfo != null && networkInfo.isConnected()) {
+    		if (Utilities.isOnline(this)) {
 				new FetchPublists(this).execute();
 			} else {
 				new LoadPublist(this).execute();
@@ -223,9 +220,7 @@ public class BrewListActivity extends FragmentActivity implements BrewListFragme
 			loadingSpinner.start();
 			
 			Log.d(DEBUG_TAG, "Begining Request for updated Pub List");
-			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-			if (networkInfo != null && networkInfo.isConnected()) {	
+			if (Utilities.isOnline(this)) {	
 				new FetchPublists(this).execute();
 			} else {
 				new LoadPublist(this).execute();

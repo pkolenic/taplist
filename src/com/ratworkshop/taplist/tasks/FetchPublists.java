@@ -1,5 +1,6 @@
 package com.ratworkshop.taplist.tasks;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,16 +9,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.ratworkshop.taplist.R;
-import com.ratworkshop.taplist.content.PubContent;
-import com.ratworkshop.taplist.database.DBHelper;
-import com.ratworkshop.taplist.interfaces.PublistDelegate;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.ratworkshop.taplist.R;
+import com.ratworkshop.taplist.content.PubContent;
+import com.ratworkshop.taplist.database.DBHelper;
+import com.ratworkshop.taplist.interfaces.PublistDelegate;
 
 public class FetchPublists extends AsyncTask<String, Void, String> {
 
@@ -58,12 +59,15 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 		}
 	}
 
-	private void parsePubLists(InputStream stream) throws IOException, UnsupportedEncodingException {
+	private void parsePubLists(InputStream stream, int length) throws IOException, UnsupportedEncodingException {
 		Reader reader = null;
 		reader = new InputStreamReader(stream, "UTF-8");
-		char[] buffer = new char[stream.available()];
+		
+		char[] buffer = new char[length];
 		reader.read(buffer);
+		
 		String string = new String(buffer);
+		
 		reader.close();
 		
 		Activity activity = (Activity) delegate;
@@ -84,19 +88,22 @@ public class FetchPublists extends AsyncTask<String, Void, String> {
 			URL url = new URL(((Activity) delegate).getString(
 					R.string.get_all_pubs_url));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(10000 /* milliseconds */);
+			conn.setReadTimeout(20000 /* milliseconds */);
 			conn.setConnectTimeout(2500 /* milliseconds */);
 			conn.setRequestMethod("GET");
 			conn.addRequestProperty("Authorization", "Token token=pizza");
 			conn.addRequestProperty("Accept",
 					"application/ratworkshop.taplist.v1");
+
 			// Starts the query
+			conn.setUseCaches(false);
 			conn.connect();
+			
 			int response = conn.getResponseCode();
 			Log.d(DEBUG_TAG, "The response is: " + response);
-			is = conn.getInputStream();
+			is = new BufferedInputStream(conn.getInputStream());
 
-			parsePubLists(is);
+			parsePubLists(is, conn.getContentLength());
 			return "Success";
 
 			// Makes sure that the InputStream is closed after the application is
